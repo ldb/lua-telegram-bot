@@ -16,7 +16,9 @@ Simply place it in the `luatgbot` Folder.
 ## Using
 
 To use this module, import it into your bot like this:
-`local bot = (require "lua-bot-api").configure([BOT TOKEN])`
+```lua
+local bot = (require "lua-bot-api").configure(token)
+```
 Include your bot token as parameter for `configure()`.
 
 The `bot` Table exports following variables and functions:
@@ -29,21 +31,24 @@ The `bot` Table exports following variables and functions:
 
 ### Functions
 
-- `getMe()`
-- `getUpdates(offset, limit timeout)`
-- `sendMessage(chat_id, text, parse_mode, disable_web_page_preview, reply_to_message_id, reply_markup)`
-- `forwardMessage(chat_id, from_chat_id, message_id)`
-- `sendPhoto (chat_id, photo, caption, reply_to_message_id, reply_markup)`
-- `sendAudio (chat_id, audio, duration, performer, title, reply_to_message_id, reply_markup)`
-- `sendDocument (chat_id, document, reply_to_message_id, reply_markup)`
-- `sendSticker (chat_id, sticker, reply_to_message_id, reply_markup)`
-- `sendVideo (chat_id, video, duration, caption, reply_to_message_id, reply_markup)`
-- `sendVoice (chat_id, voice, duration, reply_to_message_id, reply_markup)`
-- `sendLocation(chat_id, latitude, longitude, reply_to_message_id, reply_markup)`
-- `sendChatAction (chat_id, action)`
-- `getUserProfilePhotos (user_id, offset, limit)`
-- `getFile (file_id)`
-
+```lua
+- getMe()
+- getUpdates(offset, limit timeout)
+- sendMessage(chat_id, text, parse_mode, disable_web_page_preview, reply_to_message_id, reply_markup)
+- forwardMessage(chat_id, from_chat_id, message_id)
+- sendPhoto (chat_id, photo, caption, reply_to_message_id, reply_markup)
+- sendAudio (chat_id, audio, duration, performer, title, reply_to_message_id, reply_markup)
+- sendDocument (chat_id, document, reply_to_message_id, reply_markup)
+- sendSticker (chat_id, sticker, reply_to_message_id, reply_markup)
+- sendVideo (chat_id, video, duration, caption, reply_to_message_id, reply_markup)
+- sendVoice (chat_id, voice, duration, reply_to_message_id, reply_markup)
+- sendLocation(chat_id, latitude, longitude, reply_to_message_id, reply_markup)
+- sendChatAction (chat_id, action)
+- getUserProfilePhotos (user_id, offset, limit)
+- getFile (file_id)
+```
 ### Helper functions:
 
-- `function downloadFile(file_id, download_path)`
+- ```lua
+function downloadFile(file_id, download_path)
+```
