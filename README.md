@@ -49,6 +49,6 @@ The `bot` Table exports following variables and functions:
 ```
 ### Helper functions:
 
-- ```lua
+```lua
 function downloadFile(file_id, download_path)
 ```
