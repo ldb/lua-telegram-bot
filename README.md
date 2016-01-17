@@ -25,9 +25,11 @@ The `bot` Table exports following variables and functions:
 
 ### Variables
 
+```lua
 - id
 - username
 - first_name
+```
 
 ### Functions
 
@@ -50,5 +52,5 @@ The `bot` Table exports following variables and functions:
 ### Helper functions:
 
 ```lua
-function downloadFile(file_id, download_path)
+downloadFile(file_id, download_path)
 ```
