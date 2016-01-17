@@ -25,29 +25,63 @@ The `bot` Table exports following variables and functions:
 
 ### Variables
 
+
 ```lua
-- id
-- username
-- first_name
+id
 ```
+```lua
+username
+```
+```lua
+first_name
+```
+
 
 ### Functions
 
+
 ```lua
-- getMe()
-- getUpdates(offset, limit timeout)
-- sendMessage(chat_id, text, parse_mode, disable_web_page_preview, reply_to_message_id, reply_markup)
-- forwardMessage(chat_id, from_chat_id, message_id)
-- sendPhoto (chat_id, photo, caption, reply_to_message_id, reply_markup)
-- sendAudio (chat_id, audio, duration, performer, title, reply_to_message_id, reply_markup)
-- sendDocument (chat_id, document, reply_to_message_id, reply_markup)
-- sendSticker (chat_id, sticker, reply_to_message_id, reply_markup)
-- sendVideo (chat_id, video, duration, caption, reply_to_message_id, reply_markup)
-- sendVoice (chat_id, voice, duration, reply_to_message_id, reply_markup)
-- sendLocation(chat_id, latitude, longitude, reply_to_message_id, reply_markup)
-- sendChatAction (chat_id, action)
-- getUserProfilePhotos (user_id, offset, limit)
-- getFile (file_id)
+getMe()
+```
+
+```lua
+getUpdates(offset, limit timeout)
+```
+```lua
+sendMessage(chat_id, text, parse_mode, disable_web_page_preview, reply_to_message_id, reply_markup)
+```
+```lua
+forwardMessage(chat_id, from_chat_id, message_id)
+```
+```lua
+sendPhoto (chat_id, photo, caption, reply_to_message_id, reply_markup)
+```
+```lua
+sendAudio (chat_id, audio, duration, performer, title, reply_to_message_id, reply_markup)
+```
+```lua
+sendDocument (chat_id, document, reply_to_message_id, reply_markup)
+```
+```lua
+sendSticker (chat_id, sticker, reply_to_message_id, reply_markup)
+```
+```lua
+sendVideo (chat_id, video, duration, caption, reply_to_message_id, reply_markup)
+```
+```lua
+sendVoice (chat_id, voice, duration, reply_to_message_id, reply_markup)
+```
+```lua
+sendLocation(chat_id, latitude, longitude, reply_to_message_id, reply_markup)
+```
+```lua
+sendChatAction (chat_id, action)
+```
+```lua
+getUserProfilePhotos (user_id, offset, limit)
+```
+```lua
+getFile (file_id)
 ```
 ### Helper functions:
 
