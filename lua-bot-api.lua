@@ -162,7 +162,7 @@ end
 M.forwardMessage = forwardMessage
 
 
-function sendPhoto (chat_id, photo, caption, reply_to_message_id, reply_markup)
+function sendPhoto(chat_id, photo, caption, reply_to_message_id, reply_markup)
   local request_body = {""}
   local file_id = ""
   local photo_data = {}
@@ -198,7 +198,7 @@ end
 M.sendPhoto = sendPhoto
 
 
-function sendAudio (chat_id, audio, duration, performer, title, reply_to_message_id, reply_markup)
+function sendAudio(chat_id, audio, duration, performer, title, reply_to_message_id, reply_markup)
   local request_body = {""}
   local file_id = ""
   local audio_data = {}
@@ -236,7 +236,7 @@ end
 M.sendAudio = sendAudio
 
 
-function sendDocument (chat_id, document, reply_to_message_id, reply_markup)
+function sendDocument(chat_id, document, reply_to_message_id, reply_markup)
   local request_body = {""}
   local file_id = ""
   local document_data = {}
@@ -270,7 +270,7 @@ end
 M.sendDocument = sendDocument
 
 
-function sendSticker (chat_id, sticker, reply_to_message_id, reply_markup)
+function sendSticker(chat_id, sticker, reply_to_message_id, reply_markup)
   local request_body = {""}
   local file_id = ""
   local sticker_data = {}
@@ -305,7 +305,7 @@ end
 M.sendSticker = sendSticker
 
 
-function sendVideo (chat_id, video, duration, caption, reply_to_message_id, reply_markup)
+function sendVideo(chat_id, video, duration, caption, reply_to_message_id, reply_markup)
   local request_body = {""}
   local file_id = ""
   local video_data = {}
@@ -342,7 +342,7 @@ end
 M.sendVideo = sendVideo
 
 
-function sendVoice (chat_id, voice, duration, reply_to_message_id, reply_markup)
+function sendVoice(chat_id, voice, duration, reply_to_message_id, reply_markup)
   local request_body = {""}
   local file_id = ""
   local voice_data = {}
@@ -399,7 +399,7 @@ end
 M.sendLocation = sendLocation
 
 
-function sendChatAction (chat_id, action)
+function sendChatAction(chat_id, action)
   local request_body = {""}
 
   local allowedAction = {
@@ -430,7 +430,7 @@ end
 M.sendChatAction = sendChatAction
 
 
-function getUserProfilePhotos (user_id, offset, limit)
+function getUserProfilePhotos(user_id, offset, limit)
   local request_body = {""}
 
   request_body.user_id = tonumber(user_id)
@@ -448,7 +448,7 @@ end
 
 M.getUserProfilePhotos = getUserProfilePhotos
 
-function getFile (file_id)
+function getFile(file_id)
   local request_body = {""}
 
   request_body.file_id = file_id
@@ -464,7 +464,7 @@ end
 
 M.getFile = getFile
 
-function answerInlineQuery (args)
+function answerInlineQuery(args)
   -- body...
 end
 
