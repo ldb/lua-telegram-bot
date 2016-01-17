@@ -1,3 +1,0 @@
-[submodule "multipart"]
-	path = multipart
-	url = git://github.com/cosmonawt/lua-multipart-post.git
