@@ -78,7 +78,7 @@ function downloadFile(file_id, download_path)
     local r = {
       success = true,
       download_path = download_file_path,
-      file = file_info.result.
+      file = file_info.result
     }
     return r
   end
