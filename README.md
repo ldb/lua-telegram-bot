@@ -29,8 +29,8 @@ The `bot` Table exports following variables and functions:
 
 ### Functions
 
-- `getUpdates(offset, limit timeout)`
 - `getMe()`
+- `getUpdates(offset, limit timeout)`
 - `sendMessage(chat_id, text, parse_mode, disable_web_page_preview, reply_to_message_id, reply_markup)`
 - `forwardMessage(chat_id, from_chat_id, message_id)`
 - `sendPhoto (chat_id, photo, caption, reply_to_message_id, reply_markup)`
