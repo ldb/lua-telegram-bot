@@ -13,7 +13,12 @@ local M = {} -- Main Bot Framework
 local C = {} -- Configure Constructor
 
 function configure(token)
-  M.token = token
+
+  if (token == "") then 
+    token = nil
+  end
+
+  M.token = assert(token, "No token specified!")
   local bot_info = getMe()
   if (bot_info) then
     M.id = bot_info.id
