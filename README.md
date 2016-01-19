@@ -43,7 +43,6 @@ first_name
 ```lua
 getMe()
 ```
-
 ```lua
 getUpdates(offset, limit timeout)
 ```
