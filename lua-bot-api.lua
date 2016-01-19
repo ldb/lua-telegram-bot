@@ -19,7 +19,7 @@
 local https = require("ssl.https")
 local ltn12 = require("ltn12")
 local encode = (require "multipart.multipart-post").encode
-local JSON = (loadfile "JSON.lua")()
+local JSON = (require "JSON")
 --local dump = (require "dump").dump
 
 local M = {} -- Main Bot Framework
