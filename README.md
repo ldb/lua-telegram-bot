@@ -43,7 +43,7 @@ first_name
 getMe()
 ```
 ```lua
-getUpdates([offset] [,limit timeout])
+getUpdates([offset] [,limit] [,timeout])
 ```
 ```lua
 sendMessage(chat_id, text [,parse_mode] [,disable_web_page_preview [,reply_to_message_id] [,reply_markup])
