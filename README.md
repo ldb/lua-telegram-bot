@@ -43,40 +43,40 @@ first_name
 getMe()
 ```
 ```lua
-getUpdates(offset, limit timeout)
+getUpdates([offset] [,limit timeout])
 ```
 ```lua
-sendMessage(chat_id, text, parse_mode, disable_web_page_preview, reply_to_message_id, reply_markup)
+sendMessage(chat_id, text [,parse_mode] [,disable_web_page_preview [,reply_to_message_id] [,reply_markup])
 ```
 ```lua
 forwardMessage(chat_id, from_chat_id, message_id)
 ```
 ```lua
-sendPhoto(chat_id, photo, caption, reply_to_message_id, reply_markup)
+sendPhoto(chat_id, photo, caption [,reply_to_message_id] [,reply_markup])
 ```
 ```lua
-sendAudio(chat_id, audio, duration, performer, title, reply_to_message_id, reply_markup)
+sendAudio(chat_id, audio, duration [,performer] [,title] [,reply_to_message_id] [,reply_markup])
 ```
 ```lua
-sendDocument(chat_id, document, reply_to_message_id, reply_markup)
+sendDocument(chat_id, document [,reply_to_message_id] [,reply_markup])
 ```
 ```lua
-sendSticker(chat_id, sticker, reply_to_message_id, reply_markup)
+sendSticker(chat_id, sticker [,reply_to_message_id] [,reply_markup])
 ```
 ```lua
-sendVideo(chat_id, video, duration, caption, reply_to_message_id, reply_markup)
+sendVideo(chat_id, video [,duration] [,caption] [,reply_to_message_id] [,reply_markup])
 ```
 ```lua
-sendVoice(chat_id, voice, duration, reply_to_message_id, reply_markup)
+sendVoice(chat_id, voice [,duration] [,reply_to_message_id] [,reply_markup])
 ```
 ```lua
-sendLocation(chat_id, latitude, longitude, reply_to_message_id, reply_markup)
+sendLocation(chat_id, latitude, longitude [,reply_to_message_id] [,reply_markup])
 ```
 ```lua
 sendChatAction(chat_id, action)
 ```
 ```lua
-getUserProfilePhotos(user_id, offset, limit)
+getUserProfilePhotos(user_id [, offset] [,limit])
 ```
 ```lua
 getFile(file_id)
@@ -84,7 +84,7 @@ getFile(file_id)
 ### Helper functions:
 
 ```lua
-downloadFile(file_id, download_path)
+downloadFile(file_id [,download_path])
 ```
 - Downloads file from Telegram Servers.
 - `download_path` is an optional path where the file can be saved. If not specified, it will be saved in `/downloads/<filenameByTelegram>`. In both cases make sure the path already exists, since LUA can not create folders without additional modules.
