@@ -86,3 +86,5 @@ getFile(file_id)
 ```lua
 downloadFile(file_id, download_path)
 ```
+- Downloads file from Telegram Servers.
+- `download_path` is an optional path where the file can be saved. If not specified, it will be saved in `/downloads/<filenameByTelegram>`. In both cases make sure the path already exists, since LUA can not create folders without additional modules.
