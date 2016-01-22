@@ -108,9 +108,9 @@ M.downloadFile = downloadFile
 function getUpdates(offset, limit, timeout)
   local request_body = {""}
 
-  request_body.offset = offset --or ""
-  request_body.limit = limit --or ""
-  request_body.offset = timeout --or ""
+  request_body.offset = offset
+  request_body.limit = limit
+  request_body.offset = timeout
 
   local response =  makeRequest("getUpdates", request_body)
 
@@ -144,9 +144,9 @@ function sendMessage(chat_id, text, parse_mode, disable_web_page_preview, reply_
 
   request_body.chat_id = chat_id
   request_body.text = tostring(text)
-  request_body.parse_mode = parse_mode or ""
-  request_body.disable_web_page_preview = disable_web_page_preview or ""
-  request_body.reply_to_message_id = tonumber(reply_to_message_id) or tonumber("")
+  request_body.parse_mode = parse_mode
+  request_body.disable_web_page_preview = disable_web_page_preview
+  request_body.reply_to_message_id = tonumber(reply_to_message_id)
   request_body.reply_markup = reply_markup or ""
 
   local response = makeRequest("sendMessage",request_body)
@@ -200,9 +200,9 @@ function sendPhoto(chat_id, photo, caption, reply_to_message_id, reply_markup)
 
   request_body.chat_id = chat_id
   request_body.photo = file_id or photo_data
-  request_body.caption = caption or ""
-  request_body.reply_to_message_id = tonumber(reply_to_message_id) or tonumber("")
-  request_body.reply_markup = reply_markup or ""
+  request_body.caption = caption
+  request_body.reply_to_message_id = tonumber(reply_to_message_id)
+  request_body.reply_markup = reply_markup
 
   local response = makeRequest("sendPhoto",request_body)
 
@@ -236,11 +236,11 @@ function sendAudio(chat_id, audio, duration, performer, title, reply_to_message_
 
   request_body.chat_id = chat_id
   request_body.audio = file_id or audio_data
-  request_body.duration = duration or tonumber("")
-  request_body.performer = performer or ""
-  request_body.title = title or ""
-  request_body.reply_to_message_id = tonumber(reply_to_message_id) or tonumber("")
-  request_body.reply_markup = reply_markup or ""
+  request_body.duration = duration or
+  request_body.performer = performer
+  request_body.title = title
+  request_body.reply_to_message_id = tonumber(reply_to_message_id)
+  request_body.reply_markup = reply_markup
 
   local response = makeRequest("sendAudio",request_body)
 
@@ -273,8 +273,8 @@ function sendDocument(chat_id, document, reply_to_message_id, reply_markup)
 
   request_body.chat_id = chat_id
   request_body.document = file_id or document_data
-  request_body.reply_to_message_id = tonumber(reply_to_message_id) or tonumber("")
-  request_body.reply_markup = reply_markup or ""
+  request_body.reply_to_message_id = tonumber(reply_to_message_id)
+  request_body.reply_markup = reply_markup
 
   local response = makeRequest("sendDocument",request_body)
 
@@ -308,8 +308,8 @@ function sendSticker(chat_id, sticker, reply_to_message_id, reply_markup)
 
   request_body.chat_id = chat_id
   request_body.sticker = file_id or sticker_data
-  request_body.reply_to_message_id = tonumber(reply_to_message_id) or tonumber("")
-  request_body.reply_markup = reply_markup or ""
+  request_body.reply_to_message_id = tonumber(reply_to_message_id)
+  request_body.reply_markup = reply_markup
 
   local response = makeRequest("sendSticker",request_body)
 
@@ -343,10 +343,10 @@ function sendVideo(chat_id, video, duration, caption, reply_to_message_id, reply
 
   request_body.chat_id = chat_id
   request_body.video = file_id or video_data
-  request_body.duration = duration or tonumber("")
-  request_body.caption = caption or ""
-  request_body.reply_to_message_id = tonumber(reply_to_message_id) or tonumber("")
-  request_body.reply_markup = reply_markup or ""
+  request_body.duration = duration
+  request_body.caption = caption
+  request_body.reply_to_message_id = tonumber(reply_to_message_id)
+  request_body.reply_markup = reply_markup
 
   local response = makeRequest("sendVideo",request_body)
 
@@ -380,9 +380,9 @@ function sendVoice(chat_id, voice, duration, reply_to_message_id, reply_markup)
 
   request_body.chat_id = chat_id
   request_body.voice = file_id or voice_data
-  request_body.duration = duration or tonumber("")
-  request_body.reply_to_message_id = tonumber(reply_to_message_id) or tonumber("")
-  request_body.reply_markup = reply_markup or ""
+  request_body.duration = duration
+  request_body.reply_to_message_id = tonumber(reply_to_message_id)
+  request_body.reply_markup = reply_markup
 
   local response = makeRequest("sendVoice",request_body)
 
@@ -402,8 +402,8 @@ function sendLocation(chat_id, latitude, longitude, reply_to_message_id, reply_m
   request_body.chat_id = chat_id
   request_body.latitude = tonumber(latitude)
   request_body.longitude = tonumber(longitude)
-  request_body.reply_to_message_id = tonumber(reply_to_message_id) or tonumber("")
-  request_body.reply_markup = reply_markup or ""
+  request_body.reply_to_message_id = tonumber(reply_to_message_id)
+  request_body.reply_markup = reply_markup
 
   local response = makeRequest("sendLocation",request_body)
 
@@ -452,8 +452,8 @@ function getUserProfilePhotos(user_id, offset, limit)
   local request_body = {""}
 
   request_body.user_id = tonumber(user_id)
-  request_body.offset = offset or tonumber("")
-  request_body. limit = limit or tonumber("")
+  request_body.offset = offset
+  request_body. limit = limit
 
   local response = makeRequest("getUserProfilePhotos",request_body)
 
