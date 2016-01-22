@@ -252,7 +252,7 @@ function sendAudio(chat_id, audio, duration, performer, title, reply_to_message_
 
   request_body.chat_id = chat_id
   request_body.audio = file_id or audio_data
-  request_body.duration = duration or
+  request_body.duration = duration
   request_body.performer = performer
   request_body.title = title
   request_body.reply_to_message_id = tonumber(reply_to_message_id)
