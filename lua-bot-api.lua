@@ -73,6 +73,9 @@ end
 
 function downloadFile(file_id, download_path)
 
+  if not file_id then return nil, "file_id not specified" end
+  if not download_path then return nil, "download_path not specified" end
+
   local response = {}
 
   local file_info = getFile(file_id)
@@ -80,12 +83,7 @@ function downloadFile(file_id, download_path)
 
   local download_file = io.open(download_file_path, "w")
 
-  if (not download_file) then
-    return {
-      success = false,
-      error = "File could not be created",
-    }
-
+  if not download_file then return nil, "download_file could not be created"
   else
     local success, code, headers, status = https.request{
       url = "https://api.telegram.org/file/bot" .. M.token .. "/" .. file_info.result.file_path,
@@ -106,6 +104,7 @@ M.downloadFile = downloadFile
 
 
 function getUpdates(offset, limit, timeout)
+
   local request_body = {""}
 
   request_body.offset = offset
@@ -140,6 +139,10 @@ M.getMe = getMe
 
 
 function sendMessage(chat_id, text, parse_mode, disable_web_page_preview, reply_to_message_id, reply_markup)
+
+  if not chat_id then return nil, "chat_id not specified" end
+  if not text then return nil, "text not specified" end
+
   local request_body = {""}
 
   request_body.chat_id = chat_id
@@ -162,6 +165,11 @@ M.sendMessage = sendMessage
 
 
 function forwardMessage(chat_id, from_chat_id, message_id)
+
+  if not chat_id then return nil, "chat_id not specified" end
+  if not from_chat_id then return nil, "from_chat_id not specified" end
+  if not message_id then return nil, "message_id not specified" end
+
   local request_body = {""}
 
   request_body.chat_id = chat_id
@@ -181,6 +189,10 @@ M.forwardMessage = forwardMessage
 
 
 function sendPhoto(chat_id, photo, caption, reply_to_message_id, reply_markup)
+
+  if not chat_id then return nil, "chat_id not specified" end
+  if not photo then return nil, "photo not specified" end
+
   local request_body = {""}
   local file_id = ""
   local photo_data = {}
@@ -217,6 +229,10 @@ M.sendPhoto = sendPhoto
 
 
 function sendAudio(chat_id, audio, duration, performer, title, reply_to_message_id, reply_markup)
+
+  if not chat_id then return nil, "chat_id not specified" end
+  if not audio then return nil, "audio not specified" end
+
   local request_body = {""}
   local file_id = ""
   local audio_data = {}
@@ -255,6 +271,10 @@ M.sendAudio = sendAudio
 
 
 function sendDocument(chat_id, document, reply_to_message_id, reply_markup)
+
+  if not chat_id then return nil, "chat_id not specified" end
+  if not document then return nil, "document not specified" end
+
   local request_body = {""}
   local file_id = ""
   local document_data = {}
@@ -289,6 +309,10 @@ M.sendDocument = sendDocument
 
 
 function sendSticker(chat_id, sticker, reply_to_message_id, reply_markup)
+
+  if not chat_id then return nil, "chat_id not specified" end
+  if not sticker then return nil, "sticker not specified" end
+
   local request_body = {""}
   local file_id = ""
   local sticker_data = {}
@@ -324,6 +348,10 @@ M.sendSticker = sendSticker
 
 
 function sendVideo(chat_id, video, duration, caption, reply_to_message_id, reply_markup)
+
+  if not chat_id then return nil, "chat_id not specified" end
+  if not video then return nil, "video not specified" end
+
   local request_body = {""}
   local file_id = ""
   local video_data = {}
@@ -361,6 +389,10 @@ M.sendVideo = sendVideo
 
 
 function sendVoice(chat_id, voice, duration, reply_to_message_id, reply_markup)
+
+  if not chat_id then return nil, "chat_id not specified" end
+  if not voice then return nil, "voice not specified" end
+
   local request_body = {""}
   local file_id = ""
   local voice_data = {}
@@ -397,6 +429,11 @@ M.sendAudio = sendAudio
 
 
 function sendLocation(chat_id, latitude, longitude, reply_to_message_id, reply_markup)
+
+  if not chat_id then return nil, "chat_id not specified" end
+  if not latitude then return nil, "latitude not specified" end
+  if not longitude then return nil, "longitude not specified" end
+
   local request_body = {""}
 
   request_body.chat_id = chat_id
@@ -418,6 +455,10 @@ M.sendLocation = sendLocation
 
 
 function sendChatAction(chat_id, action)
+
+  if not chat_id then return nil, "chat_id not specified" end
+  if not action then return nil, "action not specified" end
+
   local request_body = {""}
 
   local allowedAction = {
@@ -449,6 +490,9 @@ M.sendChatAction = sendChatAction
 
 
 function getUserProfilePhotos(user_id, offset, limit)
+
+  if not user_id then return nil, "user_id not specified" end
+
   local request_body = {""}
 
   request_body.user_id = tonumber(user_id)
@@ -467,6 +511,9 @@ end
 M.getUserProfilePhotos = getUserProfilePhotos
 
 function getFile(file_id)
+
+  if not file_id then return nil, "file_id not specified" end
+
   local request_body = {""}
 
   request_body.file_id = file_id
@@ -483,6 +530,10 @@ end
 M.getFile = getFile
 
 function answerInlineQuery(inline_query_id, results, cache_time, is_personal, next_offset)
+
+  if not inline_query_id then return nil, "inline_query_id not specified" end
+  if not results then return nil, "results not specified" end
+
   local request_body = {""}
 
   request_body.inline_query_id = inline_query_id
