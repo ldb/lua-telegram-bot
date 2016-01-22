@@ -51,7 +51,7 @@ getMe()
 getUpdates([offset] [,limit] [,timeout])
 ```
 ```lua
-sendMessage(chat_id, text [,parse_mode] [,disable_web_page_preview [,reply_to_message_id] [,reply_markup])
+sendMessage(chat_id, text [,parse_mode] [,disable_web_page_preview] [,reply_to_message_id] [,reply_markup])
 ```
 ```lua
 forwardMessage(chat_id, from_chat_id, message_id)

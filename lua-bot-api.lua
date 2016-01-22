@@ -594,7 +594,4 @@ end
 
 M.answerInlineQuery = answerInlineQuery
 
-
-
-
 return C
