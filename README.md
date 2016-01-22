@@ -2,7 +2,7 @@
 A simple LUA Framework for the [Telegram Bot API](https://https://core.telegram.org/bots/api)
 
 
-## Installation
+## Installing
 
 To install this module, place it inside the same folder your bot is located.
 
@@ -21,10 +21,16 @@ local bot = (require "lua-bot-api").configure(token)
 ```
 Include your bot token as parameter for `configure()`.
 
-The `bot` Table exports following variables and functions:
+The `bot` Table exports variables and functions which return the following return values:
+
+### Return values
+
+All functions return a table as received from the server if called successfully as their first return value.
+This does *not* mean the request was successful, for example in case of a bad `offset` in `getUpdates()`.
+
+A function returns `nil` and an `error description` if it was wrongly called (missing parameters).
 
 ### Variables
-
 
 ```lua
 id
@@ -37,7 +43,6 @@ first_name
 ```
 
 ### Functions
-
 
 ```lua
 getMe()
@@ -92,3 +97,23 @@ downloadFile(file_id [,download_path])
 ```
 - Downloads file from Telegram Servers.
 - `download_path` is an optional path where the file can be saved. If not specified, it will be saved in `/downloads/<filenameByTelegram>`. In both cases make sure the path already exists, since LUA can not create folders without additional modules.
+
+```lua
+generateReplyKeyboardMarkup(keyboard [,resize_keyboard] [,one_time_keyboard] [,selective])
+```
+- Generates a `ReplyKeyboardMarkup` of type `reply_markup` which can be sent optionally in other functions such as `sendMessage()`.
+- Displays the custom `keyboard` on the receivers device.
+
+```lua
+generateReplyKeyboardHide([hide_keyboard] [,selective])
+```
+- Generates a `ReplyKeyboardHide` of type `reply_markup` which can be sent optionally in other functions such as `sendMessage()`.
+- Forces to hide the custom `keyboard` on the receivers device.
+- `hide_keyboard` can be left out, as it is always `true`.
+
+```lua
+generateForceReply([force_reply] [,selective])
+```
+- Generates a `ForcReply` of type `reply_markup` which can be sent optionally in other functions such as `sendMessage()`.
+- Forces to reply to the corresponding message from the receivers device.
+- `force_reply` can be left out, as it is always `true`.

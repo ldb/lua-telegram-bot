@@ -102,6 +102,47 @@ end
 
 M.downloadFile = downloadFile
 
+function generateReplyKeyboardMarkup(keyboard, resize_keyboard, one_time_keyboard, selective)
+
+  if not keyboard then return nil, "keyboard not specified" end
+  if #keyboard < 1 then return nil, "keyboard is empty" end
+
+  local response = {}
+
+  response.keyboard = keyboard
+  response.resize_keyboard = tostring(resize_keyboard)
+  response.one_time_keyboard = tostring(one_time_keyboard)
+  response.selective = tostring(selective)
+
+  return response
+end
+
+M.generateReplyKeyboardMarkup = generateReplyKeyboardMarkup
+
+function generateReplyKeyboardHide(hide_keyboard, selective)
+
+  local response = {}
+
+  response.hide_keyboard = tostring(true)
+  response.selective = tostring(selective)
+
+  return response
+end
+
+M.generateReplyKeyboardHide = generateReplyKeyboardHide
+
+function generateForceReply(force_reply, selective)
+
+  local response = {}
+
+  response.force_reply = tostring(true)
+  response.selective = tostring(selective)
+
+  return response
+end
+
+M.generateForceReply = generateForceReply
+
 
 function getUpdates(offset, limit, timeout)
 
