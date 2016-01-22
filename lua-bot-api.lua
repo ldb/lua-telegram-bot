@@ -482,9 +482,25 @@ end
 
 M.getFile = getFile
 
-function answerInlineQuery(args)
-  -- body...
+function answerInlineQuery(inline_query_id, results, cache_time, is_personal, next_offset)
+  local request_body = {""}
+
+  request_body.inline_query_id = inline_query_id
+  request_body.result = result
+  request_body.cache_time = tonumber(cache_time)
+  request_body.is_personal = tostring(is_personal)
+  request_body.next_offset = next_offset
+
+  local response = makeRequest("answerInlineQuery",request_body)
+
+  if (response.success == 1) then
+    return JSON:decode(response.body)
+  else
+    return nil, response.code
+  end
 end
+
+M.answerInlineQuery = answerInlineQuery
 
 
 

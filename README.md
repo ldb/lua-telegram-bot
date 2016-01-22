@@ -76,10 +76,14 @@ sendLocation(chat_id, latitude, longitude [,reply_to_message_id] [,reply_markup]
 sendChatAction(chat_id, action)
 ```
 ```lua
-getUserProfilePhotos(user_id [, offset] [,limit])
+getUserProfilePhotos(user_id [,offset] [,limit])
 ```
 ```lua
 getFile(file_id)
+```
+
+```lua
+answerInlineQuery(inline_query_id, results [,cache_time] [,is_personal] [,next_offset])
 ```
 ### Helper functions:
 
