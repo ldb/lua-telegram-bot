@@ -21,6 +21,8 @@ local bot = (require "lua-bot-api").configure(token)
 ```
 Include your bot token as parameter for `configure()`.
 
+At the moment, only getUpdates method (aka polling) is supported, no webhooks.
+
 The `bot` Table exports variables and functions which return the following return values:
 
 ### Return values
