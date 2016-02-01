@@ -16,7 +16,7 @@ for key, query in pairs(updates.result) do
     -- if message text was 'ping'
     if query.message.text == "ping" then
       -- reply with 'pong'
-      print(bot.sendMessage(query.message.from.id, "pong"))
+      bot.sendMessage(query.message.from.id, "pong")
 
     -- if message text was 'photo'
     elseif query.message.text == "photo" then
