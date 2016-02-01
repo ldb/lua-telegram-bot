@@ -116,6 +116,6 @@ generateReplyKeyboardHide([hide_keyboard] [,selective])
 ```lua
 generateForceReply([force_reply] [,selective])
 ```
-- Generates a `ForcReply` of type `reply_markup` which can be sent optionally in other functions such as `sendMessage()`.
+- Generates a `ForceReply` of type `reply_markup` which can be sent optionally in other functions such as `sendMessage()`.
 - Forces to reply to the corresponding message from the receivers device.
 - `force_reply` can be left out, as it is always `true`.
