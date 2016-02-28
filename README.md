@@ -13,6 +13,17 @@ You can easily install it with luarocks using `luarocks install luasec`.
 You will also need a Module for JSON en- and decoding, which can be found [here](http://regex.info/code/JSON.lua).
 Simply place it in the `lua-telegram-bot` Folder.
 
+## Changelog
+
+### Jan 22 2016
+
+* Initial release v0.1-alpha
+
+### Feb 29 2016
+
+* Added `disable_notification` argument to all sending methods to enable [silent messages](https://telegram.org/blog/channels-2-0#silent-messages)
+* Added `caption` argument to `sendDocument()`
+
 ## Using
 
 To use this module, import it into your bot like this:
@@ -53,31 +64,31 @@ getMe()
 getUpdates([offset] [,limit] [,timeout])
 ```
 ```lua
-sendMessage(chat_id, text [,parse_mode] [,disable_web_page_preview] [,reply_to_message_id] [,reply_markup])
+sendMessage(chat_id, text [,parse_mode] [,disable_web_page_preview] [,disable_notification] [,reply_to_message_id] [,reply_markup])
 ```
 ```lua
-forwardMessage(chat_id, from_chat_id, message_id)
+forwardMessage(chat_id, from_chat_id [,disable_notification], message_id)
 ```
 ```lua
-sendPhoto(chat_id, photo, caption [,reply_to_message_id] [,reply_markup])
+sendPhoto(chat_id, photo, caption [,disable_notification] [,reply_to_message_id] [,reply_markup])
 ```
 ```lua
-sendAudio(chat_id, audio, duration [,performer] [,title] [,reply_to_message_id] [,reply_markup])
+sendAudio(chat_id, audio, duration [,performer] [,title] [,disable_notification] [,reply_to_message_id] [,reply_markup])
 ```
 ```lua
-sendDocument(chat_id, document [,reply_to_message_id] [,reply_markup])
+sendDocument(chat_id, document [,caption] [,disable_notification] [,reply_to_message_id] [,reply_markup])
 ```
 ```lua
-sendSticker(chat_id, sticker [,reply_to_message_id] [,reply_markup])
+sendSticker(chat_id, sticker [,disable_notification] [,reply_to_message_id] [,reply_markup])
 ```
 ```lua
-sendVideo(chat_id, video [,duration] [,caption] [,reply_to_message_id] [,reply_markup])
+sendVideo(chat_id, video [,duration] [,caption] [,disable_notification] [,reply_to_message_id] [,reply_markup])
 ```
 ```lua
-sendVoice(chat_id, voice [,duration] [,reply_to_message_id] [,reply_markup])
+sendVoice(chat_id, voice [,duration] [,disable_notification] [,reply_to_message_id] [,reply_markup])
 ```
 ```lua
-sendLocation(chat_id, latitude, longitude [,reply_to_message_id] [,reply_markup])
+sendLocation(chat_id, latitude, longitude [,disable_notification] [,reply_to_message_id] [,reply_markup])
 ```
 ```lua
 sendChatAction(chat_id, action)
