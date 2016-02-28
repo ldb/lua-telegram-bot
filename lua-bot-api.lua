@@ -179,7 +179,7 @@ end
 M.getMe = getMe
 
 
-function sendMessage(chat_id, text, parse_mode, disable_web_page_preview, reply_to_message_id, reply_markup)
+function sendMessage(chat_id, text, parse_mode, disable_web_page_preview, disable_notification, reply_to_message_id, reply_markup)
 
   if not chat_id then return nil, "chat_id not specified" end
   if not text then return nil, "text not specified" end
@@ -189,7 +189,8 @@ function sendMessage(chat_id, text, parse_mode, disable_web_page_preview, reply_
   request_body.chat_id = chat_id
   request_body.text = tostring(text)
   request_body.parse_mode = parse_mode
-  request_body.disable_web_page_preview = disable_web_page_preview
+  request_body.disable_web_page_preview = tostring(disable_web_page_preview)
+  request_body.disable_notification = tostring(disable_notification)
   request_body.reply_to_message_id = tonumber(reply_to_message_id)
   request_body.reply_markup = reply_markup or ""
 
