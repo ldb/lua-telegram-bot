@@ -1,6 +1,6 @@
 -- Telegram Bot API Framework for LUA
 -- More information on the API: https://core.telegram.org/bots/api
--- Copyright (C) 2016  cosmonawt
+-- Copyright (C) 2016 cosmonawt
 
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -150,7 +150,7 @@ function getUpdates(offset, limit, timeout)
 
   request_body.offset = offset
   request_body.limit = limit
-  request_body.offset = timeout
+  request_body.timeout = timeout
 
   local response =  makeRequest("getUpdates", request_body)
 
