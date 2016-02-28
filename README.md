@@ -19,7 +19,7 @@ Simply place it in the `lua-telegram-bot` Folder.
 
 * Initial release v0.1-alpha
 
-### Feb 29 2016
+### Feb 28 2016
 
 * Added `disable_notification` argument to all sending methods to enable [silent messages](https://telegram.org/blog/channels-2-0#silent-messages)
 * Added `caption` argument to `sendDocument()`
