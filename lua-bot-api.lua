@@ -206,7 +206,7 @@ end
 M.sendMessage = sendMessage
 
 
-function forwardMessage(chat_id, from_chat_id, message_id)
+function forwardMessage(chat_id, from_chat_id, disable_notification, message_id)
 
   if not chat_id then return nil, "chat_id not specified" end
   if not from_chat_id then return nil, "from_chat_id not specified" end
@@ -216,6 +216,7 @@ function forwardMessage(chat_id, from_chat_id, message_id)
 
   request_body.chat_id = chat_id
   request_body.from_chat_id = from_chat_id
+  request_body.disable_notification = tostring(disable_notification)
   request_body.message_id = tonumber(message_id)
 
   local response = makeRequest("forwardMessage",request_body)
@@ -230,7 +231,7 @@ end
 M.forwardMessage = forwardMessage
 
 
-function sendPhoto(chat_id, photo, caption, reply_to_message_id, reply_markup)
+function sendPhoto(chat_id, photo, caption, disable_notification, reply_to_message_id, reply_markup)
 
   if not chat_id then return nil, "chat_id not specified" end
   if not photo then return nil, "photo not specified" end
@@ -255,6 +256,7 @@ function sendPhoto(chat_id, photo, caption, reply_to_message_id, reply_markup)
   request_body.chat_id = chat_id
   request_body.photo = file_id or photo_data
   request_body.caption = caption
+  request_body.disable_notification = tostring(disable_notification)
   request_body.reply_to_message_id = tonumber(reply_to_message_id)
   request_body.reply_markup = reply_markup
 
@@ -270,7 +272,7 @@ end
 M.sendPhoto = sendPhoto
 
 
-function sendAudio(chat_id, audio, duration, performer, title, reply_to_message_id, reply_markup)
+function sendAudio(chat_id, audio, duration, performer, title, disable_notification, reply_to_message_id, reply_markup)
 
   if not chat_id then return nil, "chat_id not specified" end
   if not audio then return nil, "audio not specified" end
@@ -297,6 +299,7 @@ function sendAudio(chat_id, audio, duration, performer, title, reply_to_message_
   request_body.duration = duration
   request_body.performer = performer
   request_body.title = title
+  request_body.disable_notification = tostring(disable_notification)
   request_body.reply_to_message_id = tonumber(reply_to_message_id)
   request_body.reply_markup = reply_markup
 
@@ -312,7 +315,7 @@ end
 M.sendAudio = sendAudio
 
 
-function sendDocument(chat_id, document, reply_to_message_id, reply_markup)
+function sendDocument(chat_id, document, caption, disable_notification, reply_to_message_id, reply_markup)
 
   if not chat_id then return nil, "chat_id not specified" end
   if not document then return nil, "document not specified" end
@@ -335,6 +338,8 @@ function sendDocument(chat_id, document, reply_to_message_id, reply_markup)
 
   request_body.chat_id = chat_id
   request_body.document = file_id or document_data
+  request_body.caption = caption
+  request_body.disable_notification = tostring(disable_notification)
   request_body.reply_to_message_id = tonumber(reply_to_message_id)
   request_body.reply_markup = reply_markup
 
@@ -350,7 +355,7 @@ end
 M.sendDocument = sendDocument
 
 
-function sendSticker(chat_id, sticker, reply_to_message_id, reply_markup)
+function sendSticker(chat_id, sticker, disable_notification, reply_to_message_id, reply_markup)
 
   if not chat_id then return nil, "chat_id not specified" end
   if not sticker then return nil, "sticker not specified" end
@@ -374,6 +379,7 @@ function sendSticker(chat_id, sticker, reply_to_message_id, reply_markup)
 
   request_body.chat_id = chat_id
   request_body.sticker = file_id or sticker_data
+  request_body.disable_notification = tostring(disable_notification)
   request_body.reply_to_message_id = tonumber(reply_to_message_id)
   request_body.reply_markup = reply_markup
 
@@ -389,7 +395,7 @@ end
 M.sendSticker = sendSticker
 
 
-function sendVideo(chat_id, video, duration, caption, reply_to_message_id, reply_markup)
+function sendVideo(chat_id, video, duration, caption, disable_notification, reply_to_message_id, reply_markup)
 
   if not chat_id then return nil, "chat_id not specified" end
   if not video then return nil, "video not specified" end
@@ -415,6 +421,7 @@ function sendVideo(chat_id, video, duration, caption, reply_to_message_id, reply
   request_body.video = file_id or video_data
   request_body.duration = duration
   request_body.caption = caption
+  request_body.disable_notification = tostring(disable_notification)
   request_body.reply_to_message_id = tonumber(reply_to_message_id)
   request_body.reply_markup = reply_markup
 
@@ -430,7 +437,7 @@ end
 M.sendVideo = sendVideo
 
 
-function sendVoice(chat_id, voice, duration, reply_to_message_id, reply_markup)
+function sendVoice(chat_id, voice, duration, disable_notification, reply_to_message_id, reply_markup)
 
   if not chat_id then return nil, "chat_id not specified" end
   if not voice then return nil, "voice not specified" end
@@ -455,6 +462,7 @@ function sendVoice(chat_id, voice, duration, reply_to_message_id, reply_markup)
   request_body.chat_id = chat_id
   request_body.voice = file_id or voice_data
   request_body.duration = duration
+  request_body.disable_notification = tostring(disable_notification)
   request_body.reply_to_message_id = tonumber(reply_to_message_id)
   request_body.reply_markup = reply_markup
 
@@ -470,7 +478,7 @@ end
 M.sendAudio = sendAudio
 
 
-function sendLocation(chat_id, latitude, longitude, reply_to_message_id, reply_markup)
+function sendLocation(chat_id, latitude, longitude, disable_notification, reply_to_message_id, reply_markup)
 
   if not chat_id then return nil, "chat_id not specified" end
   if not latitude then return nil, "latitude not specified" end
@@ -481,6 +489,7 @@ function sendLocation(chat_id, latitude, longitude, reply_to_message_id, reply_m
   request_body.chat_id = chat_id
   request_body.latitude = tonumber(latitude)
   request_body.longitude = tonumber(longitude)
+  disable_notification = tostring(disable_notification)
   request_body.reply_to_message_id = tonumber(reply_to_message_id)
   request_body.reply_markup = reply_markup
 
