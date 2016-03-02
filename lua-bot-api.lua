@@ -513,14 +513,14 @@ function sendChatAction(chat_id, action)
   local request_body = {""}
 
   local allowedAction = {
-    "typing",
-    "upload_photo",
-    "record_video",
-    "upload_video",
-    "record_audio",
-    "upload_audio",
-    "upload_document",
-    "find_location",
+    ["typing"] = true,
+    ["upload_photo"] = true,
+    ["record_video"] = true,
+    ["upload_video"] = true,
+    ["record_audio"] = true,
+    ["upload_audio"] = true,
+    ["upload_document"] = true,
+    ["find_location"] = true,
   }
 
   if (not allowedAction[action]) then action = "typing" end
