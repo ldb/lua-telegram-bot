@@ -25,6 +25,24 @@ local JSON = (require "JSON")
 local M = {} -- Main Bot Framework
 local C = {} -- Configure Constructor
 
+-- JSON Error handlers
+function JSON:onDecodeError(message, text, location, etc)
+  if text then
+    if location then
+      message = string.format("%s at char %d of: %s", message, location, text)
+    else
+      message = string.format("%s: %s", message, text)
+    end
+  end
+  print("Error while decoding JSON:\n", message)
+end
+
+function JSON:onEncodeError(message, etc)
+  print(print("Error while encoding JSON:\n", message))
+end
+
+
+-- configure and initialize bot
 function configure(token)
 
   if (token == "") then
@@ -59,8 +77,8 @@ function makeRequest(method, request_body)
     source = ltn12.source.string(body),
     sink = ltn12.sink.table(response),
   }
-  --print(success, code, table.concat(headers or {"no headers"}), status)
-  --print(table.concat(response or {"no body", }))
+  --print("success: " .. success,"code: " .. code,"headers: " .. table.concat(headers or {"no headers"}),"status: " .. status)
+  --print("body: " .. table.concat(response or {"no body", }))
   local r = {
     success = success or "false",
     code = code or "0",
