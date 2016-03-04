@@ -70,7 +70,7 @@ sendMessage(chat_id, text [,parse_mode] [,disable_web_page_preview] [,disable_no
 forwardMessage(chat_id, from_chat_id [,disable_notification], message_id)
 ```
 ```lua
-sendPhoto(chat_id, photo, caption [,disable_notification] [,reply_to_message_id] [,reply_markup])
+sendPhoto(chat_id, photo, [,caption] [,disable_notification] [,reply_to_message_id] [,reply_markup])
 ```
 ```lua
 sendAudio(chat_id, audio, duration [,performer] [,title] [,disable_notification] [,reply_to_message_id] [,reply_markup])
