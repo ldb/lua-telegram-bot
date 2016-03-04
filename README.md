@@ -1,6 +1,17 @@
 # lua-telegram-bot
 A simple LUA Framework for the [Telegram Bot API](https://https://core.telegram.org/bots/api)
 
+## Changelog
+
+### Feb 28 2016
+
+* Added `disable_notification` argument to all sending methods to enable [silent messages](https://telegram.org/blog/channels-2-0#silent-messages)
+* Added `caption` argument to `sendDocument()`
+
+### Jan 22 2016
+
+* Initial release v0.1-alpha
+
 
 ## Installing
 
@@ -13,16 +24,6 @@ You can easily install it with luarocks using `luarocks install luasec`.
 You will also need a Module for JSON en- and decoding, which can be found [here](http://regex.info/code/JSON.lua).
 Simply place it in the `lua-telegram-bot` Folder.
 
-## Changelog
-
-### Jan 22 2016
-
-* Initial release v0.1-alpha
-
-### Feb 28 2016
-
-* Added `disable_notification` argument to all sending methods to enable [silent messages](https://telegram.org/blog/channels-2-0#silent-messages)
-* Added `caption` argument to `sendDocument()`
 
 ## Using
 
