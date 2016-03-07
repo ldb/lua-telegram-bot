@@ -20,7 +20,6 @@ local https = require("ssl.https")
 local ltn12 = require("ltn12")
 local encode = (require "multipart.multipart-post").encode
 local JSON = (require "JSON")
---local dump = (require "dump").dump
 
 local M = {} -- Main Bot Framework
 local C = {} -- Configure Constructor
@@ -40,7 +39,6 @@ end
 function JSON:onEncodeError(message, etc)
   print(print("Error while encoding JSON:\n", message))
 end
-
 
 -- configure and initialize bot
 function configure(token)
@@ -77,8 +75,7 @@ function makeRequest(method, request_body)
     source = ltn12.source.string(body),
     sink = ltn12.sink.table(response),
   }
-  --print("success: " .. success,"code: " .. code,"headers: " .. table.concat(headers or {"no headers"}),"status: " .. status)
-  --print("body: " .. table.concat(response or {"no body", }))
+
   local r = {
     success = success or "false",
     code = code or "0",
@@ -120,6 +117,7 @@ end
 
 M.downloadFile = downloadFile
 
+
 function generateReplyKeyboardMarkup(keyboard, resize_keyboard, one_time_keyboard, selective)
 
   if not keyboard then return nil, "keyboard not specified" end
@@ -128,35 +126,41 @@ function generateReplyKeyboardMarkup(keyboard, resize_keyboard, one_time_keyboar
   local response = {}
 
   response.keyboard = keyboard
-  response.resize_keyboard = tostring(resize_keyboard)
-  response.one_time_keyboard = tostring(one_time_keyboard)
-  response.selective = tostring(selective)
+  response.resize_keyboard = resize_keyboard
+  response.one_time_keyboard = one_time_keyboard
+  response.selective = selective
 
-  return response
+
+  local responseString = JSON:encode(response)
+  return responseString
 end
 
 M.generateReplyKeyboardMarkup = generateReplyKeyboardMarkup
+
 
 function generateReplyKeyboardHide(hide_keyboard, selective)
 
   local response = {}
 
-  response.hide_keyboard = tostring(true)
-  response.selective = tostring(selective)
+  response.hide_keyboard = true
+  response.selective = selective
 
-  return response
+  local responseString = JSON:encode(response)
+  return responseString
 end
 
 M.generateReplyKeyboardHide = generateReplyKeyboardHide
+
 
 function generateForceReply(force_reply, selective)
 
   local response = {}
 
-  response.force_reply = tostring(true)
-  response.selective = tostring(selective)
+  response.force_reply = true
+  response.selective = selective
 
-  return response
+  local responseString = JSON:encode(response)
+  return responseString
 end
 
 M.generateForceReply = generateForceReply
@@ -164,18 +168,18 @@ M.generateForceReply = generateForceReply
 
 function getUpdates(offset, limit, timeout)
 
-  local request_body = {""}
+  local request_body = {}
 
   request_body.offset = offset
   request_body.limit = limit
-  request_body.timeout = timeout
+  request_body.timeout = timeout or 0
 
   local response =  makeRequest("getUpdates", request_body)
 
   if (response.success == 1) then
     return JSON:decode(response.body)
   else
-    return nil, response.code
+    return nil, "Request Error"
   end
 end
 
@@ -190,7 +194,7 @@ function getMe()
   if (response.success == 1) then
     return JSON:decode(response.body)
   else
-    return nil, response.code
+    return nil, "Request Error"
   end
 end
 
@@ -202,11 +206,11 @@ function sendMessage(chat_id, text, parse_mode, disable_web_page_preview, disabl
   if not chat_id then return nil, "chat_id not specified" end
   if not text then return nil, "text not specified" end
 
-  local request_body = {""}
+  local request_body = {}
 
   request_body.chat_id = chat_id
   request_body.text = tostring(text)
-  request_body.parse_mode = parse_mode
+  request_body.parse_mode = parse_mode or ""
   request_body.disable_web_page_preview = tostring(disable_web_page_preview)
   request_body.disable_notification = tostring(disable_notification)
   request_body.reply_to_message_id = tonumber(reply_to_message_id)
@@ -217,7 +221,7 @@ function sendMessage(chat_id, text, parse_mode, disable_web_page_preview, disabl
   if (response.success == 1) then
     return JSON:decode(response.body)
   else
-    return nil, response.code
+    return nil, "Request Error"
   end
 end
 
@@ -242,7 +246,7 @@ function forwardMessage(chat_id, from_chat_id, disable_notification, message_id)
   if (response.success == 1) then
     return JSON:decode(response.body)
   else
-    return nil, response.code
+    return nil, "Request Error"
   end
 end
 
@@ -283,7 +287,7 @@ function sendPhoto(chat_id, photo, caption, disable_notification, reply_to_messa
   if (response.success == 1) then
     return JSON:decode(response.body)
   else
-    return nil, response.code
+    return nil, "Request Error"
   end
 end
 
@@ -295,7 +299,7 @@ function sendAudio(chat_id, audio, duration, performer, title, disable_notificat
   if not chat_id then return nil, "chat_id not specified" end
   if not audio then return nil, "audio not specified" end
 
-  local request_body = {""}
+  local request_body = {}
   local file_id = ""
   local audio_data = {}
 
@@ -326,7 +330,7 @@ function sendAudio(chat_id, audio, duration, performer, title, disable_notificat
   if (response.success == 1) then
     return JSON:decode(response.body)
   else
-    return nil, response.code
+    return nil, "Request Error"
   end
 end
 
@@ -338,7 +342,7 @@ function sendDocument(chat_id, document, caption, disable_notification, reply_to
   if not chat_id then return nil, "chat_id not specified" end
   if not document then return nil, "document not specified" end
 
-  local request_body = {""}
+  local request_body = {}
   local file_id = ""
   local document_data = {}
 
@@ -366,7 +370,7 @@ function sendDocument(chat_id, document, caption, disable_notification, reply_to
   if (response.success == 1) then
     return JSON:decode(response.body)
   else
-    return nil, response.code
+    return nil, "Request Error"
   end
 end
 
@@ -378,7 +382,7 @@ function sendSticker(chat_id, sticker, disable_notification, reply_to_message_id
   if not chat_id then return nil, "chat_id not specified" end
   if not sticker then return nil, "sticker not specified" end
 
-  local request_body = {""}
+  local request_body = {}
   local file_id = ""
   local sticker_data = {}
 
@@ -406,7 +410,7 @@ function sendSticker(chat_id, sticker, disable_notification, reply_to_message_id
   if (response.success == 1) then
     return JSON:decode(response.body)
   else
-    return nil, response.code
+    return nil, "Request Error"
   end
 end
 
@@ -418,7 +422,7 @@ function sendVideo(chat_id, video, duration, caption, disable_notification, repl
   if not chat_id then return nil, "chat_id not specified" end
   if not video then return nil, "video not specified" end
 
-  local request_body = {""}
+  local request_body = {}
   local file_id = ""
   local video_data = {}
 
@@ -448,7 +452,7 @@ function sendVideo(chat_id, video, duration, caption, disable_notification, repl
   if (response.success == 1) then
     return JSON:decode(response.body)
   else
-    return nil, response.code
+    return nil, "Request Error"
   end
 end
 
@@ -460,7 +464,7 @@ function sendVoice(chat_id, voice, duration, disable_notification, reply_to_mess
   if not chat_id then return nil, "chat_id not specified" end
   if not voice then return nil, "voice not specified" end
 
-  local request_body = {""}
+  local request_body = {}
   local file_id = ""
   local voice_data = {}
 
@@ -489,7 +493,7 @@ function sendVoice(chat_id, voice, duration, disable_notification, reply_to_mess
   if (response.success == 1) then
     return JSON:decode(response.body)
   else
-    return nil, response.code
+    return nil, "Request Error"
   end
 end
 
@@ -502,7 +506,7 @@ function sendLocation(chat_id, latitude, longitude, disable_notification, reply_
   if not latitude then return nil, "latitude not specified" end
   if not longitude then return nil, "longitude not specified" end
 
-  local request_body = {""}
+  local request_body = {}
 
   request_body.chat_id = chat_id
   request_body.latitude = tonumber(latitude)
@@ -516,7 +520,7 @@ function sendLocation(chat_id, latitude, longitude, disable_notification, reply_
   if (response.success == 1) then
     return JSON:decode(response.body)
   else
-    return nil, response.code
+    return nil, "Request Error"
   end
 end
 
@@ -528,7 +532,7 @@ function sendChatAction(chat_id, action)
   if not chat_id then return nil, "chat_id not specified" end
   if not action then return nil, "action not specified" end
 
-  local request_body = {""}
+  local request_body = {}
 
   local allowedAction = {
     ["typing"] = true,
@@ -551,7 +555,7 @@ function sendChatAction(chat_id, action)
   if (response.success == 1) then
     return JSON:decode(response.body)
   else
-    return nil, response.code
+    return nil, "Request Error"
   end
 end
 
@@ -562,7 +566,7 @@ function getUserProfilePhotos(user_id, offset, limit)
 
   if not user_id then return nil, "user_id not specified" end
 
-  local request_body = {""}
+  local request_body = {}
 
   request_body.user_id = tonumber(user_id)
   request_body.offset = offset
@@ -573,7 +577,7 @@ function getUserProfilePhotos(user_id, offset, limit)
   if (response.success == 1) then
     return JSON:decode(response.body)
   else
-    return nil, response.code
+    return nil, "Request Error"
   end
 end
 
@@ -583,7 +587,7 @@ function getFile(file_id)
 
   if not file_id then return nil, "file_id not specified" end
 
-  local request_body = {""}
+  local request_body = {}
 
   request_body.file_id = file_id
 
@@ -592,7 +596,7 @@ function getFile(file_id)
   if (response.success == 1) then
     return JSON:decode(response.body)
   else
-    return nil, response.code
+    return nil, "Request Error"
   end
 end
 
@@ -603,7 +607,7 @@ function answerInlineQuery(inline_query_id, results, cache_time, is_personal, ne
   if not inline_query_id then return nil, "inline_query_id not specified" end
   if not results then return nil, "results not specified" end
 
-  local request_body = {""}
+  local request_body = {}
 
   request_body.inline_query_id = inline_query_id
   request_body.result = result
@@ -616,7 +620,7 @@ function answerInlineQuery(inline_query_id, results, cache_time, is_personal, ne
   if (response.success == 1) then
     return JSON:decode(response.body)
   else
-    return nil, response.code
+    return nil, "Request Error"
   end
 end
 
