@@ -609,8 +609,8 @@ local function answerInlineQuery(inline_query_id, results, cache_time, is_person
 
   local request_body = {}
 
-  request_body.inline_query_id = inline_query_id
-  request_body.results = results
+  request_body.inline_query_id = tostring(inline_query_id)
+  request_body.results = JSON:encode(results)
   request_body.cache_time = tonumber(cache_time)
   request_body.is_personal = tostring(is_personal)
   request_body.next_offset = next_offset
