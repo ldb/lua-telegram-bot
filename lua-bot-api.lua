@@ -41,14 +41,14 @@ function JSON:onEncodeError(message, etc)
 end
 
 -- configure and initialize bot
-function configure(token)
+local function configure(token)
 
   if (token == "") then
     token = nil
   end
 
   M.token = assert(token, "No token specified!")
-  local bot_info = getMe()
+  local bot_info = M.getMe()
   if (bot_info) then
     M.id = bot_info.id
     M.username = bot_info.username
@@ -60,7 +60,7 @@ end
 C.configure = configure
 
 
-function makeRequest(method, request_body)
+local function makeRequest(method, request_body)
 
   local response = {}
   local body, boundary = encode(request_body)
@@ -86,7 +86,7 @@ function makeRequest(method, request_body)
   return r
 end
 
-function downloadFile(file_id, download_path)
+local function downloadFile(file_id, download_path)
 
   if not file_id then return nil, "file_id not specified" end
   if not download_path then return nil, "download_path not specified" end
@@ -118,7 +118,7 @@ end
 M.downloadFile = downloadFile
 
 
-function generateReplyKeyboardMarkup(keyboard, resize_keyboard, one_time_keyboard, selective)
+local function generateReplyKeyboardMarkup(keyboard, resize_keyboard, one_time_keyboard, selective)
 
   if not keyboard then return nil, "keyboard not specified" end
   if #keyboard < 1 then return nil, "keyboard is empty" end
@@ -138,7 +138,7 @@ end
 M.generateReplyKeyboardMarkup = generateReplyKeyboardMarkup
 
 
-function generateReplyKeyboardHide(hide_keyboard, selective)
+local function generateReplyKeyboardHide(hide_keyboard, selective)
 
   local response = {}
 
@@ -152,7 +152,7 @@ end
 M.generateReplyKeyboardHide = generateReplyKeyboardHide
 
 
-function generateForceReply(force_reply, selective)
+local function generateForceReply(force_reply, selective)
 
   local response = {}
 
@@ -166,7 +166,7 @@ end
 M.generateForceReply = generateForceReply
 
 
-function getUpdates(offset, limit, timeout)
+local function getUpdates(offset, limit, timeout)
 
   local request_body = {}
 
@@ -186,7 +186,7 @@ end
 M.getUpdates = getUpdates
 
 
-function getMe()
+local function getMe()
   local request_body = {""}
 
   local response = makeRequest("getMe",request_body)
@@ -201,7 +201,7 @@ end
 M.getMe = getMe
 
 
-function sendMessage(chat_id, text, parse_mode, disable_web_page_preview, disable_notification, reply_to_message_id, reply_markup)
+local function sendMessage(chat_id, text, parse_mode, disable_web_page_preview, disable_notification, reply_to_message_id, reply_markup)
 
   if not chat_id then return nil, "chat_id not specified" end
   if not text then return nil, "text not specified" end
@@ -228,7 +228,7 @@ end
 M.sendMessage = sendMessage
 
 
-function forwardMessage(chat_id, from_chat_id, disable_notification, message_id)
+local function forwardMessage(chat_id, from_chat_id, disable_notification, message_id)
 
   if not chat_id then return nil, "chat_id not specified" end
   if not from_chat_id then return nil, "from_chat_id not specified" end
@@ -253,7 +253,7 @@ end
 M.forwardMessage = forwardMessage
 
 
-function sendPhoto(chat_id, photo, caption, disable_notification, reply_to_message_id, reply_markup)
+local function sendPhoto(chat_id, photo, caption, disable_notification, reply_to_message_id, reply_markup)
 
   if not chat_id then return nil, "chat_id not specified" end
   if not photo then return nil, "photo not specified" end
@@ -294,7 +294,7 @@ end
 M.sendPhoto = sendPhoto
 
 
-function sendAudio(chat_id, audio, duration, performer, title, disable_notification, reply_to_message_id, reply_markup)
+local function sendAudio(chat_id, audio, duration, performer, title, disable_notification, reply_to_message_id, reply_markup)
 
   if not chat_id then return nil, "chat_id not specified" end
   if not audio then return nil, "audio not specified" end
@@ -337,7 +337,7 @@ end
 M.sendAudio = sendAudio
 
 
-function sendDocument(chat_id, document, caption, disable_notification, reply_to_message_id, reply_markup)
+local function sendDocument(chat_id, document, caption, disable_notification, reply_to_message_id, reply_markup)
 
   if not chat_id then return nil, "chat_id not specified" end
   if not document then return nil, "document not specified" end
@@ -377,7 +377,7 @@ end
 M.sendDocument = sendDocument
 
 
-function sendSticker(chat_id, sticker, disable_notification, reply_to_message_id, reply_markup)
+local function sendSticker(chat_id, sticker, disable_notification, reply_to_message_id, reply_markup)
 
   if not chat_id then return nil, "chat_id not specified" end
   if not sticker then return nil, "sticker not specified" end
@@ -417,7 +417,7 @@ end
 M.sendSticker = sendSticker
 
 
-function sendVideo(chat_id, video, duration, caption, disable_notification, reply_to_message_id, reply_markup)
+local function sendVideo(chat_id, video, duration, caption, disable_notification, reply_to_message_id, reply_markup)
 
   if not chat_id then return nil, "chat_id not specified" end
   if not video then return nil, "video not specified" end
@@ -459,7 +459,7 @@ end
 M.sendVideo = sendVideo
 
 
-function sendVoice(chat_id, voice, duration, disable_notification, reply_to_message_id, reply_markup)
+local function sendVoice(chat_id, voice, duration, disable_notification, reply_to_message_id, reply_markup)
 
   if not chat_id then return nil, "chat_id not specified" end
   if not voice then return nil, "voice not specified" end
@@ -500,7 +500,7 @@ end
 M.sendAudio = sendAudio
 
 
-function sendLocation(chat_id, latitude, longitude, disable_notification, reply_to_message_id, reply_markup)
+local function sendLocation(chat_id, latitude, longitude, disable_notification, reply_to_message_id, reply_markup)
 
   if not chat_id then return nil, "chat_id not specified" end
   if not latitude then return nil, "latitude not specified" end
@@ -527,7 +527,7 @@ end
 M.sendLocation = sendLocation
 
 
-function sendChatAction(chat_id, action)
+local function sendChatAction(chat_id, action)
 
   if not chat_id then return nil, "chat_id not specified" end
   if not action then return nil, "action not specified" end
@@ -562,7 +562,7 @@ end
 M.sendChatAction = sendChatAction
 
 
-function getUserProfilePhotos(user_id, offset, limit)
+local function getUserProfilePhotos(user_id, offset, limit)
 
   if not user_id then return nil, "user_id not specified" end
 
@@ -583,7 +583,7 @@ end
 
 M.getUserProfilePhotos = getUserProfilePhotos
 
-function getFile(file_id)
+local function getFile(file_id)
 
   if not file_id then return nil, "file_id not specified" end
 
@@ -602,7 +602,7 @@ end
 
 M.getFile = getFile
 
-function answerInlineQuery(inline_query_id, results, cache_time, is_personal, next_offset)
+local function answerInlineQuery(inline_query_id, results, cache_time, is_personal, next_offset)
 
   if not inline_query_id then return nil, "inline_query_id not specified" end
   if not results then return nil, "results not specified" end
