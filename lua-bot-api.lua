@@ -613,7 +613,7 @@ local function answerInlineQuery(inline_query_id, results, cache_time, is_person
   request_body.results = JSON:encode(results)
   request_body.cache_time = tonumber(cache_time)
   request_body.is_personal = tostring(is_personal)
-  request_body.next_offset = next_offset
+  request_body.next_offset = tostring(next_offset)
 
   local response = makeRequest("answerInlineQuery",request_body)
 
