@@ -44,7 +44,7 @@ Include your bot token as parameter for `configure()`.
 At the moment, only getUpdates method (aka polling) is supported, no webhooks.
 
 The `bot` Table exports variables and functions which return the following return values.
-The `extension` Table exports several callback functions as well as an update handler. Check Framework Extension for more information.
+The `extension` Table exports several callback functions as well as an update handler. Check [Framework Extension](https://github.com/cosmonawt/lua-telegram-bot#framework-extension) for more information.
 
 ### Return values
 
