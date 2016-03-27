@@ -18,10 +18,11 @@
 -- Import Libraries
 local https = require("ssl.https")
 local ltn12 = require("ltn12")
-local encode = (require "multipart.multipart-post").encode
-local JSON = (require "JSON")
+local encode = require("multipart.multipart-post").encode
+local JSON = require("JSON")
 
 local M = {} -- Main Bot Framework
+local E = {} -- Extension Framework
 local C = {} -- Configure Constructor
 
 -- JSON Error handlers
@@ -37,7 +38,7 @@ function JSON:onDecodeError(message, text, location, etc)
 end
 
 function JSON:onEncodeError(message, etc)
-  print(print("Error while encoding JSON:\n", message))
+  print("Error while encoding JSON:\n", message)
 end
 
 -- configure and initialize bot
@@ -50,11 +51,11 @@ local function configure(token)
   M.token = assert(token, "No token specified!")
   local bot_info = M.getMe()
   if (bot_info) then
-    M.id = bot_info.id
-    M.username = bot_info.username
-    M.first_name = bot_info.first_name
+    M.id = bot_info.result.id
+    M.username = bot_info.result.username
+    M.first_name = bot_info.result.first_name
   end
-  return M
+  return M, E
 end
 
 C.configure = configure
@@ -625,5 +626,143 @@ local function answerInlineQuery(inline_query_id, results, cache_time, is_person
 end
 
 M.answerInlineQuery = answerInlineQuery
+
+-- Extension Framework
+
+local function onUpdateReceive(update) end
+E.onUpdateReceive = onUpdateReceive
+
+local function onMessageReceive(message) end
+E.onMessageReceive = onMessageReceive
+
+local function onPhotoReceive(message) end
+E.onPhotoReceive = onPhotoReceive
+
+local function onAudioReceive(message) end
+E.onAudioReceive = onAudioReceive
+
+local function onDocumentReceive(message) end
+E.onDocumentReceive = onDocumentReceive
+
+local function onStickerReceive(message) end
+E.onStickerReceive = onStickerReceive
+
+local function onVideoReceive(message) end
+E.onVideoReceive = onVideoReceive
+
+local function onVoiceReceive(message) end
+E.onVoiceReceive = onVoiceReceive
+
+local function onContactReceive(message) end
+E.onContactReceive = onContactReceive
+
+local function onLocationReceive(message) end
+E.onLocationReceive = onLocationReceive
+
+local function onLeftChatParticipant(message) end
+E.onLeftChatParticipant = onLeftChatParticipant
+
+local function onNewChatParticipant(message) end
+E.onNewChatParticipant = onNewChatParticipant
+
+local function onNewChatTitle(message) end
+E.onNewChatTitle = onNewChatTitle
+
+local function onNewChatPhoto(message) end
+E.onNewChatPhoto = onNewChatPhoto
+
+local function onDeleteChatPhoto(message) end
+E.onDeleteChatPhoto = onDeleteChatPhoto
+
+local function onGroupChatCreated(message) end
+E.onGroupChatCreated = onGroupChatCreated
+
+local function onSupergroupChatCreated(message) end
+E.onsuperGroupChatCreated = onsuperGroupChatCreated
+
+local function onChannelChatCreated(message) end
+E.onChannelChatCreated = onChannelChatCreated
+
+local function onMigrateToChatId(message) end
+E.onMigrateToChatId = onMigrateToChatId
+
+local function onMigrateFromChatId(message) end
+E.onMigrateFromChatId = onMigrateFromChatId
+
+local function onInlineQueryReceive(inlineQuery) end
+E.onInlineQueryReceive = onInlineQueryReceive
+
+local function onChosenInlineQueryReceive(chosenInlineQuery) end
+E.onChosenInlineQueryReceive = onChosenInlineQueryReceive
+
+local function onUnknownTypeReceive(unknownType)
+  print("new unknownType!")
+end
+
+E.onChosenInlineQueryReceive = onChosenInlineQueryReceive
+
+local function parseUpdateCallbacks(update)
+  E.onUpdateReceive(update)
+  if (update.message.text) then
+    E.onMessageReceive(update.message)
+  elseif (update.message.photo) then
+    E.onPhotoReceive(update.message)
+  elseif (update.message.audio) then
+    E.onAudioReceive(update.message)
+  elseif (update.message.document) then
+    E.onDocumentReceive(update.message)
+  elseif (update.message.sticker) then
+    E.onStickerReceive(update.message)
+  elseif (update.message.video) then
+    E.onVideoReceive(update.message)
+  elseif (update.message.voice) then
+    E.onVoiceReceive(update.message)
+  elseif (update.message.contact) then
+    E.onContactReceive(update.message)
+  elseif (update.message.location) then
+    E.onLocationReceive(update.message)
+  elseif (update.message.left_chat_participant) then
+    E.onLeftChatParticipant(update.message)
+  elseif (update.message.new_chat_participant) then
+    E.onNewChatParticipant(update.message)
+  elseif (update.message.new_chat_photo) then
+    E.onNewChatPhoto(update.message)
+  elseif (update.message.delete_chat_photo) then
+    E.onDeleteChatPhoto(update.message)
+  elseif (update.message.group_chat_created) then
+    E.onGroupChatCreated(update.message)
+  elseif (update.message.supergroup_chat_created) then
+    E.onSupergroupChatCreated(update.message)
+  elseif (update.message.channel_chat_created) then
+    E.onChannelChatCreated(update.message)
+  elseif (update.message.migrate_to_chat_id) then
+    E.onMigrateToChatId(update.message)
+  elseif (update.message.migrate_from_chat_id) then
+    E.onMigrateFromChatId(update.message)
+  elseif (update.inline_query) then
+    E.onInlineQueryReceive(update.inline_query)
+  elseif (update.chosen_inline_result) then
+    E.onChosenInlineQueryReceive(update.chosen_inline_result)
+  else
+    E.onUnknownTypeReceive(update)
+  end
+end
+
+local function run()
+  local offset = 0
+  while true do 
+    local updates = M.getUpdates(offset)
+    if(updates) then
+      if (updates.result) then
+        for key, update in pairs(updates.result) do
+          parseUpdateCallbacks(update)
+          offset = update.update_id + 1
+        end
+      end
+    end
+  end
+end
+
+E.run = run
 
 return C

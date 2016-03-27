@@ -23,7 +23,7 @@ for key, query in pairs(updates.result) do
       -- get the users profile pictures
       local profilePicture = getUserProfilePhotos(query.message.from.id)
       -- and send the first one back to him using its file id
-      sendPhoto(query.message.from.id, profilePicture.result.photos[1][1].file_id)
+      bot.sendPhoto(query.message.from.id, profilePicture.result.photos[1][1].file_id)
     end
   end
 end

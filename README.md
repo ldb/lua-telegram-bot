@@ -1,16 +1,24 @@
 # lua-telegram-bot
 A simple LUA Framework for the [Telegram Bot API](https://https://core.telegram.org/bots/api)
 
+Made with ❤️ by [@cosmonawt](https://telegram.me/cosmonawt)
+
 ## Changelog
 
-### Feb 28 2016
+### Mar 27 2016 - v2.0
+
+* Added [Framework Extension](https://github.com/cosmonawt/lua-telegram-bot#framework-extension) which includes an internal update and callback handler and several callback functions which can be overridden.
+* Added file `bot-example.lua` with examples on how to use the new [Framework Extension](https://github.com/cosmonawt/lua-telegram-bot#framework-extension).
+* Minor bug fixes
+
+### Feb 28 2016 v1.1
 
 * Added `disable_notification` argument to all sending methods to enable [silent messages](https://telegram.org/blog/channels-2-0#silent-messages)
 * Added `caption` argument to `sendDocument()`
 
-### Jan 22 2016
+### Jan 22 2016 - v1.0
 
-* Initial release v0.1-alpha
+* Initial release v1.0-alpha
 
 
 ## Installing
@@ -29,13 +37,14 @@ Simply place it in the `lua-telegram-bot` Folder.
 
 To use this module, import it into your bot like this:
 ```lua
-local bot = (require "lua-bot-api").configure(token)
+local bot, extension = (require "lua-bot-api").configure(token)
 ```
 Include your bot token as parameter for `configure()`.
 
 At the moment, only getUpdates method (aka polling) is supported, no webhooks.
 
-The `bot` Table exports variables and functions which return the following return values:
+The `bot` Table exports variables and functions which return the following return values.
+The `extension` Table exports several callback functions as well as an update handler. Check Framework Extension for more information.
 
 ### Return values
 
@@ -44,7 +53,7 @@ This does *not* mean the request was successful, for example in case of a bad `o
 
 A function returns `nil` and an `error description` if it was wrongly called (missing parameters).
 
-### Variables
+### Available Variables
 
 ```lua
 id
@@ -56,7 +65,7 @@ username
 first_name
 ```
 
-### Functions
+### Available Functions
 
 ```lua
 getMe()
@@ -131,3 +140,160 @@ generateForceReply([force_reply] [,selective])
 - Generates a `ForceReply` of type `reply_markup` which can be sent optionally in other functions such as `sendMessage()`.
 - Forces to reply to the corresponding message from the receivers device.
 - `force_reply` can be left out, as it is always `true`.
+
+## Framework Extension
+
+The framework extension was added to help developers focus on the things that actually matter in a bot: It's logic.
+It offers serveral callback functions which can be overridden to provide the wanted logic.
+
+### Available Functions
+
+To use the extension, simply add another table variable to the initial `require` call like so:
+
+```lua
+local bot, extension = require("lua-bot-api").configure(token)
+```
+
+The `extension` Table now stores the following functions:
+
+```lua
+run()
+```
+- Provides an update handler which automatically fetches new updates from the server and calls the respective callback functions.
+
+```lua
+onUpdateReceive(update)
+```
+- Is called every time an update, no matter of what type, is received.
+
+```lua
+onMessageReceive(message)
+```
+- Is called every time a text message is received.
+
+```lua
+onPhotoReceive(message)
+```
+- Is called every time a photo is received.
+
+```lua
+onAudioReceive(message)
+```
+- Is called every time audio is received.
+
+```lua
+onDocumentReceive(message)
+```
+- Is called every time a document is received.
+
+```lua
+onStickerReceive(message)
+```
+- Is called every time a sticker is received.
+
+```lua
+onVideoReceive(message)
+```
+- Is called every time a video is received.
+
+```lua
+onVoiceReceive(message)
+```
+- Is called every time a voice message is received.
+
+```lua
+onContactReceive(message)
+```
+- Is called every time a contact is received.
+
+```lua
+onLocationReceive(message)
+```
+- Is called every time a location is received.
+
+```lua
+onLeftChatParticipant(message)
+```
+- Is called every time a member or the bot itself leaves the chat.
+
+```lua
+onNewChatParticipant(message)
+```
+- Is called when a member joins a chat or the bot itself is added.
+
+```lua
+onNewChatTitle(message)
+```
+- Is called every time the chat title is changed.
+
+```lua
+onNewChatPhoto(message)
+```
+- Is called every time the chat photo is changed.
+
+```lua
+onDeleteChatPhoto(message)
+```
+- Is called every time the chat photo is deleted.
+
+```lua
+onGroupChatCreated(message)
+```
+- Is called every time a group chat is created directly with the bot.
+
+```lua
+onSupergroupChatCreated(message)
+```
+
+```lua
+onChannelChatCreated(message)
+```
+
+```lua
+onMigrateToChatId(message)
+```
+- Is called every time a group is upgraded to a supergroup.
+
+```lua
+onMigrateFromChatId(message)
+```
+
+```lua
+onInlineQueryReceive(inlineQuery)
+```
+- Is called every time an inline query is received.
+
+```lua
+onChosenInlineQueryReceive(chosenInlineQuery)
+```
+- Is called every time a chosen inline query result is received.
+
+```lua
+onUnknownTypeReceive(unknownType)
+```
+- Is called every time when an unknown type is received.
+
+### Using extension functions
+
+In order to provide your own desired behaviour to these callback functions, you need to override them, like so, for example:
+
+```lua
+local bot, extension = require("lua-bot-api").configure(token)
+
+extension.onMessageReceive = function (message)
+	-- Your own desired behaviour here
+end
+
+extension.run()
+
+```
+
+You can now use `extension.run()` to use the internal update handler to fetch new updates from the server and call the representive functions.
+
+You can even override `extension.run()` with your own update handler.
+
+See bot-example.lua for some examples on how to use extension functions.
+
+
+
+
