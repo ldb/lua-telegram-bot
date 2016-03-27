@@ -11,7 +11,7 @@ Made with ❤️ by [@cosmonawt](https://telegram.me/cosmonawt)
 * Added file `bot-example.lua` with examples on how to use the new [Framework Extension](https://github.com/cosmonawt/lua-telegram-bot#framework-extension).
 * Minor bug fixes
 
-### Feb 28 2016 v1.1
+### Feb 28 2016 - v1.1
 
 * Added `disable_notification` argument to all sending methods to enable [silent messages](https://telegram.org/blog/channels-2-0#silent-messages)
 * Added `caption` argument to `sendDocument()`
