@@ -753,10 +753,12 @@ local function parseUpdateCallbacks(update)
   end
 end
 
-local function run()
+local function run(limit, timeout)
+  if limit == nil then limit = 1 end
+  if timeout == nil then timeout = 0 end
   local offset = 0
   while true do 
-    local updates = M.getUpdates(offset)
+    local updates = M.getUpdates(offset, limit, timeout)
     if(updates) then
       if (updates.result) then
         for key, update in pairs(updates.result) do

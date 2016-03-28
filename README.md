@@ -284,11 +284,12 @@ extension.onMessageReceive = function (message)
 	-- Your own desired behaviour here
 end
 
-extension.run()
+extension.run(limit, timeout)
 
 ```
 
 You can now use `extension.run()` to use the internal update handler to fetch new updates from the server and call the representive functions.
+It lets you pass the same `limit` and `timeout` parameters as in `getUpdates()` to control the handlers behaviour without rewriting it.
 
 You can even override `extension.run()` with your own update handler.
 
