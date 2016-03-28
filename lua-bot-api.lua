@@ -704,8 +704,7 @@ E.onChosenInlineQueryReceive = onChosenInlineQueryReceive
 local function onUnknownTypeReceive(unknownType)
   print("new unknownType!")
 end
-
-E.onChosenInlineQueryReceive = onChosenInlineQueryReceive
+E.onUnknownTypeReceive = onUnknownTypeReceive
 
 local function parseUpdateCallbacks(update)
   E.onUpdateReceive(update)
