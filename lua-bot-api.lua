@@ -707,43 +707,49 @@ end
 E.onUnknownTypeReceive = onUnknownTypeReceive
 
 local function parseUpdateCallbacks(update)
-  E.onUpdateReceive(update)
-  if (update.message.text) then
-    E.onMessageReceive(update.message)
-  elseif (update.message.photo) then
-    E.onPhotoReceive(update.message)
-  elseif (update.message.audio) then
-    E.onAudioReceive(update.message)
-  elseif (update.message.document) then
-    E.onDocumentReceive(update.message)
-  elseif (update.message.sticker) then
-    E.onStickerReceive(update.message)
-  elseif (update.message.video) then
-    E.onVideoReceive(update.message)
-  elseif (update.message.voice) then
-    E.onVoiceReceive(update.message)
-  elseif (update.message.contact) then
-    E.onContactReceive(update.message)
-  elseif (update.message.location) then
-    E.onLocationReceive(update.message)
-  elseif (update.message.left_chat_participant) then
-    E.onLeftChatParticipant(update.message)
-  elseif (update.message.new_chat_participant) then
-    E.onNewChatParticipant(update.message)
-  elseif (update.message.new_chat_photo) then
-    E.onNewChatPhoto(update.message)
-  elseif (update.message.delete_chat_photo) then
-    E.onDeleteChatPhoto(update.message)
-  elseif (update.message.group_chat_created) then
-    E.onGroupChatCreated(update.message)
-  elseif (update.message.supergroup_chat_created) then
-    E.onSupergroupChatCreated(update.message)
-  elseif (update.message.channel_chat_created) then
-    E.onChannelChatCreated(update.message)
-  elseif (update.message.migrate_to_chat_id) then
-    E.onMigrateToChatId(update.message)
-  elseif (update.message.migrate_from_chat_id) then
-    E.onMigrateFromChatId(update.message)
+  if (update) then
+    E.onUpdateReceive(update)
+  end
+  if (update.message) then
+    if (update.message.text) then
+      E.onMessageReceive(update.message)
+    elseif (update.message.photo) then
+      E.onPhotoReceive(update.message)
+    elseif (update.message.audio) then
+      E.onAudioReceive(update.message)
+    elseif (update.message.document) then
+      E.onDocumentReceive(update.message)
+    elseif (update.message.sticker) then
+      E.onStickerReceive(update.message)
+    elseif (update.message.video) then
+      E.onVideoReceive(update.message)
+    elseif (update.message.voice) then
+      E.onVoiceReceive(update.message)
+    elseif (update.message.contact) then
+      E.onContactReceive(update.message)
+    elseif (update.message.location) then
+      E.onLocationReceive(update.message)
+    elseif (update.message.left_chat_participant) then
+      E.onLeftChatParticipant(update.message)
+    elseif (update.message.new_chat_participant) then
+      E.onNewChatParticipant(update.message)
+    elseif (update.message.new_chat_photo) then
+      E.onNewChatPhoto(update.message)
+    elseif (update.message.delete_chat_photo) then
+      E.onDeleteChatPhoto(update.message)
+    elseif (update.message.group_chat_created) then
+      E.onGroupChatCreated(update.message)
+    elseif (update.message.supergroup_chat_created) then
+      E.onSupergroupChatCreated(update.message)
+    elseif (update.message.channel_chat_created) then
+      E.onChannelChatCreated(update.message)
+    elseif (update.message.migrate_to_chat_id) then
+      E.onMigrateToChatId(update.message)
+    elseif (update.message.migrate_from_chat_id) then
+      E.onMigrateFromChatId(update.message)
+    else
+      E.onUnknownTypeReceive(update)
+    end
   elseif (update.inline_query) then
     E.onInlineQueryReceive(update.inline_query)
   elseif (update.chosen_inline_result) then
