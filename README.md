@@ -1,5 +1,5 @@
 # lua-telegram-bot
-A simple LUA Framework for the [Telegram Bot API](https://https://core.telegram.org/bots/api)
+A simple LUA Library for the [Telegram Bot API](https://https://core.telegram.org/bots/api)
 
 Made with ❤️ by [@cosmonawt](https://telegram.me/cosmonawt)
 
@@ -7,8 +7,8 @@ Made with ❤️ by [@cosmonawt](https://telegram.me/cosmonawt)
 
 ### Mar 27 2016 - v2.0
 
-* Added [Framework Extension](https://github.com/cosmonawt/lua-telegram-bot#framework-extension) which includes an internal update and callback handler and several callback functions which can be overridden.
-* Added file `bot-example.lua` with examples on how to use the new [Framework Extension](https://github.com/cosmonawt/lua-telegram-bot#framework-extension).
+* Added [Library Extension](https://github.com/cosmonawt/lua-telegram-bot#Library-extension) which includes an internal update and callback handler and several callback functions which can be overridden.
+* Added file `bot-example.lua` with examples on how to use the new [Library Extension](https://github.com/cosmonawt/lua-telegram-bot#Library-extension).
 * Minor bug fixes
 
 ### Feb 28 2016 - v1.1
@@ -44,7 +44,7 @@ Include your bot token as parameter for `configure()`.
 At the moment, only getUpdates method (aka polling) is supported, no webhooks.
 
 The `bot` Table exports variables and functions which return the following return values.
-The `extension` Table exports several callback functions as well as an update handler. Check [Framework Extension](https://github.com/cosmonawt/lua-telegram-bot#framework-extension) for more information.
+The `extension` Table exports several callback functions as well as an update handler. Check [Library Extension](https://github.com/cosmonawt/lua-telegram-bot#Library-extension) for more information.
 
 ### Return values
 
@@ -141,9 +141,9 @@ generateForceReply([force_reply] [,selective])
 - Forces to reply to the corresponding message from the receivers device.
 - `force_reply` can be left out, as it is always `true`.
 
-## Framework Extension
+## Library Extension
 
-The framework extension was added to help developers focus on the things that actually matter in a bot: It's logic.
+The Library extension was added to help developers focus on the things that actually matter in a bot: It's logic.
 It offers serveral callback functions which can be overridden to provide the wanted logic.
 
 ### Available Functions
