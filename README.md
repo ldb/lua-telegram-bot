@@ -3,7 +3,17 @@ A simple LUA Library for the [Telegram Bot API](https://https://core.telegram.or
 
 Made with ❤️ by [@cosmonawt](https://telegram.me/cosmonawt)
 
+If you have questions, want to show off your bots or just chat about bot development, feel free to join the [group](https://telegram.me/luatelegrambot) I created.
+
 ## Changelog
+
+### Apr 20 2016 - v2.1alpha
+
+* Added changes of [Telegram Bot API 2.0](https://core.telegram.org/bots/2-0-intro)
+* This update is still not ready, hence the alpha tag
+* `editMessageText`, `editMessageCaption`, `editMessageReplyMarkup` are *not* yet fully ready.
+* *Important:* Renamed `onMessageReceive` to `onTextReceive`
+* Created a discussion[group](https://telegram.me/luatelegrambot) you can join to ask questions.
 
 ### Mar 27 2016 - v2.0
 
@@ -110,10 +120,35 @@ getUserProfilePhotos(user_id [,offset] [,limit])
 getFile(file_id)
 ```
 
+#### New Bot API 2.0 functions
+
+```lua
+kickChatMember(chat_id, user_id)
+```
+
+```lua
+unbanChatMember(chat_id, user_id)
+```
+
+```lua
+editMessageText(chat_id, message_id, inline_message_id, text [, parse_mode] [, disable_web_page_preview] [, reply_markup])
+```
+
+```lua
+editMessageCaption(chat_id, message_id, inline_message_id, caption [, reply_markup])
+```
+
+```lua
+editMessageReplyMarkup(chat_id, message_id, inline_message_id [, reply_markup])
+```
+
+#### Inline Mode functions
+
 ```lua
 answerInlineQuery(inline_query_id, results [,cache_time] [,is_personal] [,next_offset])
 ```
 ### Helper functions:
+
 
 ```lua
 downloadFile(file_id [,download_path])
@@ -294,7 +329,3 @@ It lets you pass the same `limit` and `timeout` parameters as in `getUpdates()` 
 You can even override `extension.run()` with your own update handler.
 
 See bot-example.lua for some examples on how to use extension functions.
-
-
-
-

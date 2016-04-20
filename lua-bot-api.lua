@@ -146,7 +146,6 @@ end
 
 M.downloadFile = downloadFile
 
-
 local function generateReplyKeyboardMarkup(keyboard, resize_keyboard, one_time_keyboard, selective)
 
   if not keyboard then return nil, "keyboard not specified" end
@@ -528,7 +527,6 @@ end
 
 M.sendAudio = sendAudio
 
-
 local function sendLocation(chat_id, latitude, longitude, disable_notification, reply_to_message_id, reply_markup)
 
   if not chat_id then return nil, "chat_id not specified" end
@@ -540,7 +538,7 @@ local function sendLocation(chat_id, latitude, longitude, disable_notification, 
   request_body.chat_id = chat_id
   request_body.latitude = tonumber(latitude)
   request_body.longitude = tonumber(longitude)
-  disable_notification = tostring(disable_notification)
+  request_body.disable_notification = tostring(disable_notification)
   request_body.reply_to_message_id = tonumber(reply_to_message_id)
   request_body.reply_markup = reply_markup
 
@@ -555,6 +553,61 @@ end
 
 M.sendLocation = sendLocation
 
+local function sendVenue(chat_id, latitude, longitude, title, adress, foursquare_id, disable_notification, reply_to_message_id, reply_markup)
+  
+  if not chat_id then return nil, "chat_id not specified" end
+  if not latitude then return nil, "latitude not specified" end
+  if not longitude then return nil, "longitude not specified" end
+  if not title then return nil, "title not specified" end
+  if not adress then return nil, "adress not specified" end
+
+  local request_body = {}
+
+  request_body.chat_id = chat_id
+  request_body.latitude = tonumber(latitude)
+  request_body.longitude = tonumber(longitude)
+  request_body.title = title
+  request_body.adress = adress
+  request_body.foursquare_id = foursquare_id
+  request_body.disable_notification = tostring(disable_notification)
+  request_body.reply_to_message_id = tonumber(reply_to_message_id)
+  request_body.reply_markup = reply_markup
+
+  local response = makeRequest("sendVenue",request_body)
+
+  if (response.success == 1) then
+    return JSON:decode(response.body)
+  else
+    return nil, "Request Error"
+  end
+end
+
+M.sendVenue = sendVenue
+
+local function sendContact(chat_id, phone_number, first_name, last_name, disable_notification, reply_to_message_id, reply_markup)
+  
+  if not chat_id then return nil, "chat_id not specified" end
+  if not phone_number then return nil, "phone_number not specified" end
+  if not first_name then return nil, "first_name not specified" end
+ 
+  request_body.chat_id = chat_id
+  request_body.phone_number = tostring(phone_number)
+  request_body.first_name = tostring(first_name)
+  request_body.last_name = tostring(last_name)
+  request_body.disable_notification = tostring(disable_notification)
+  request_body.reply_to_message_id = tonumber(reply_to_message_id)
+  request_body.reply_markup = reply_markup
+
+  local response = makeRequest("sendContact",request_body)
+
+  if (response.success == 1) then
+    return JSON:decode(response.body)
+  else
+    return nil, "Request Error"
+  end
+end
+
+M.sendContact = sendContact
 
 local function sendChatAction(chat_id, action)
 
@@ -599,7 +652,7 @@ local function getUserProfilePhotos(user_id, offset, limit)
 
   request_body.user_id = tonumber(user_id)
   request_body.offset = offset
-  request_body. limit = limit
+  request_body.limit = limit
 
   local response = makeRequest("getUserProfilePhotos",request_body)
 
@@ -631,6 +684,144 @@ end
 
 M.getFile = getFile
 
+local function kickChatMember(chat_id, user_id)
+	if not chat_id then return nil, "chat_id not specified" end
+	if not user_id then return nil, "user_id not specified" end
+
+	local request_body = {}
+
+	request_body.chat_id = chat_id
+	request_body.user_id = tonumber(user_id)
+	
+	local response = makeRequest("kickChatMember",request_body)
+
+	  if (response.success == 1) then
+	    return JSON:decode(response.body)
+	  else
+	    return nil, "Request Error"
+  end
+end
+
+M.kickChatMember = kickChatMember
+
+local function unbanChatMember(chat_id, user_id)
+	if not chat_id then return nil, "chat_id not specified" end
+	if not user_id then return nil, "user_id not specified" end
+
+	local request_body = {}
+
+	request_body.chat_id = chat_id
+	request_body.user_id = tonumber(user_id) 
+	
+	local response = makeRequest("unbanChatMember",request_body)
+
+	  if (response.success == 1) then
+	    return JSON:decode(response.body)
+	  else
+	    return nil, "Request Error"
+  end
+end
+
+M.unbanChatMember = unbanChatMember
+
+local function answerCallbackQuery(callback_query_id, text, show_alert)
+	if not callback_query_id then return nil, "callback_query_id not specified" end
+
+	local request_body = {}
+
+	request_body.callback_query_id = tostring(callback_query_id)
+	request_body.text = tostring(text)
+	request_body.show_alert = show_alert
+	
+	local response = makeRequest("answerCallbackQuery",request_body)
+
+	  if (response.success == 1) then
+	    return JSON:decode(response.body)
+	  else
+	    return nil, "Request Error"
+  end
+end
+
+M.answerCallbackQuery = answerCallbackQuery
+
+local function editMessageText(chat_id, message_id, inline_message_id, text, parse_mode, disable_web_page_preview, reply_markup)
+	
+  if not chat_id then return nil, "chat_id not specified" end
+  if not message_id then return nil, "message_id not specified" end
+  if not inline_message_id then return nil, "inline_message_id not specified" end
+  if not text then return nil, "text not specified" end
+
+  local request_body = {}
+
+  request_body.chat_id = chat_id
+  request_body.message_id = tonumber(chat_id)
+  request_body.inline_message_id = tostring(inline_message_id)
+  request_body.text = tostring(text)
+  request_body.parse_mode = tostring(parse_mode)
+  request_body.disable_web_page_preview = disable_web_page_preview
+  request_body.reply_markup = reply_markup
+
+  local response = makeRequest("editMessageText",request_body)
+
+  if (response.success == 1) then
+    return JSON:decode(response.body)
+  else
+    return nil, "Request Error"
+  end
+end
+
+M.editMessageText = editMessageText
+
+local function editMessageCaption(chat_id, message_id, inline_message_id, caption, reply_markup)
+  
+  if not chat_id then return nil, "chat_id not specified" end
+  if not message_id then return nil, "message_id not specified" end
+  if not inline_message_id then return nil, "inline_message_id not specified" end
+  if not caption then return nil, "caption not specified" end
+
+  local request_body = {}
+
+  request_body.chat_id = chat_id
+  request_body.message_id = tonumber(chat_id)
+  request_body.inline_message_id = tostring(inline_message_id)
+  request_body.caption = tostring(caption)
+  request_body.reply_markup = reply_markup
+
+  local response = makeRequest("editMessageCaption",request_body)
+
+  if (response.success == 1) then
+    return JSON:decode(response.body)
+  else
+    return nil, "Request Error"
+  end
+end
+
+M.editMessageCaption = editMessageCaption
+
+local function editMessageReplyMarkup(chat_id, message_id, inline_message_id, reply_markup)
+  
+  if not chat_id then return nil, "chat_id not specified" end
+  if not message_id then return nil, "message_id not specified" end
+  if not inline_message_id then return nil, "inline_message_id not specified" end
+
+  local request_body = {}
+
+  request_body.chat_id = chat_id
+  request_body.message_id = tonumber(chat_id)
+  request_body.inline_message_id = tostring(inline_message_id)
+  request_body.reply_markup = reply_markup
+
+  local response = makeRequest("editMessageReplyMarkup",request_body)
+
+  if (response.success == 1) then
+    return JSON:decode(response.body)
+  else
+    return nil, "Request Error"
+  end
+end
+
+M.editMessageReplyMarkup = editMessageReplyMarkup
+
 local function answerInlineQuery(inline_query_id, results, cache_time, is_personal, next_offset)
 
   if not inline_query_id then return nil, "inline_query_id not specified" end
@@ -660,7 +851,7 @@ M.answerInlineQuery = answerInlineQuery
 local function onUpdateReceive(update) end
 E.onUpdateReceive = onUpdateReceive
 
-local function onMessageReceive(message) end
+local function onTextReceive(message) end
 E.onMessageReceive = onMessageReceive
 
 local function onPhotoReceive(message) end
@@ -734,7 +925,7 @@ local function parseUpdateCallbacks(update)
   end
   if (update.message) then
     if (update.message.text) then
-      E.onMessageReceive(update.message)
+      E.onTextReceive(update.message)
     elseif (update.message.photo) then
       E.onPhotoReceive(update.message)
     elseif (update.message.audio) then
