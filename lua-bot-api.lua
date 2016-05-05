@@ -976,8 +976,11 @@ local function run(limit, timeout,update_func)
   if limit == nil then limit = 1 end
   if timeout == nil then timeout = 0 end
   local offset = 0
+  local time = os.time()
   while true do 
-    update_func()  
+    local dt = os.difftime(os.time(),time)
+    update_func(dt)  
+    time = time + dt
     local updates = M.getUpdates(offset, limit, timeout)
     if(updates) then
       if (updates.result) then
