@@ -47,8 +47,8 @@ local function parseUpdateCallbacks(update)
 end
 
 function E.run(limit, timeout,update_func)
-  if limit == nil then limit = 1 end
-  if timeout == nil then timeout = 0 end
+  limit = limit or 1
+  timeout = timeout or 0 
   local offset = 0
   local time = os.time()
   while true do 
