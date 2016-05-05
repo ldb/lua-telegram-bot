@@ -43,7 +43,7 @@ function JSON:onDecodeError(message, text, location, etc)
   print((os.date("%x %X")), "Error while decoding JSON:\n", message)
 end
 
-function JSON:onDecodeOfHTMLError(message, text, nil, etc)
+function JSON:onDecodeOfHTMLError(message, text, _nil, etc)
   if text then
     if location then
       message = string.format("%s at char %d of: %s", message, location, text)
@@ -54,7 +54,7 @@ function JSON:onDecodeOfHTMLError(message, text, nil, etc)
   print((os.date("%x %X")), "Error while decoding JSON [HTML]:\n", message)
 end
 
-function JSON:onDecodeOfNilError(message, nil, nil, etc)
+function JSON:onDecodeOfNilError(message, _nil, _nil, etc)
   if text then
     if location then
       message = string.format("%s at char %d of: %s", message, location, text)
@@ -972,11 +972,12 @@ local function parseUpdateCallbacks(update)
   end
 end
 
-local function run(limit, timeout)
+local function run(limit, timeout,update_func)
   if limit == nil then limit = 1 end
   if timeout == nil then timeout = 0 end
   local offset = 0
   while true do 
+    update_func()  
     local updates = M.getUpdates(offset, limit, timeout)
     if(updates) then
       if (updates.result) then
