@@ -27,7 +27,7 @@ local token = arg[1] or ""
 local bot, extension = require("lua-bot-api").configure(token)
 
 -- override onMessageReceive function so it does what we want
-extension.onMessageReceive = function (msg)
+extension.onTextReceive = function (msg)
 	print("New Message by " .. msg.from.first_name)
 
 	if (msg.text == "/start") then
