@@ -255,6 +255,23 @@ end
 
 M.sendMessage = sendMessage
 
+local function leaveChat(chat_id)
+
+  if not chat_id then return nil, "chat_id not specified" end
+
+  local request_body = {}
+  request_body.chat_id = chat_id
+
+  local response = makeRequest("leaveChat", request_body)
+
+  if (response.success == 1) then
+    return JSON:decode(response.body)
+  else
+    return nil, "Request Error"
+  end
+end
+
+M.leaveChat = leaveChat
 
 local function forwardMessage(chat_id, from_chat_id, disable_notification, message_id)
 
