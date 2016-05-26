@@ -7,6 +7,12 @@ If you have questions, want to show off your bots or just chat about bot develop
 
 ## Changelog
 
+### May 26 2016 - v2.1beta
+
+* Finally finished changes of [Telegram Bot API 2.0](https://core.telegram.org/bots/2-0-intro)
+* Implemented changes of Bot API 2.1 (also why I stayed with 2.1 version tag)
+* Code is still completely untested, but proper tests should be coming soon
+
 ### Apr 20 2016 - v2.1alpha
 
 * Added changes of [Telegram Bot API 2.0](https://core.telegram.org/bots/2-0-intro)
@@ -120,7 +126,17 @@ getUserProfilePhotos(user_id [,offset] [,limit])
 getFile(file_id)
 ```
 
-#### New Bot API 2.0 functions
+#### Inline Mode functions
+
+```lua
+answerInlineQuery(inline_query_id, results [,cache_time] [,is_personal] [,next_offset])
+```
+
+```lua
+answerCallbackQuery(callback_query_id, text [, show_alert])
+```
+
+#### Bot API 2.0 functions
 
 ```lua
 kickChatMember(chat_id, user_id)
@@ -142,11 +158,28 @@ editMessageCaption(chat_id, message_id, inline_message_id, caption [, reply_mark
 editMessageReplyMarkup(chat_id, message_id, inline_message_id [, reply_markup])
 ```
 
-#### Inline Mode functions
+#### Bot API 2.1 functions
 
 ```lua
-answerInlineQuery(inline_query_id, results [,cache_time] [,is_personal] [,next_offset])
+getChat(chat_id)
 ```
+
+```lua
+leaveChat(chat_id)
+```
+
+```lua
+getChatAdministrators(chat_id)
+```
+
+```lua
+getChatMembersCount(chat_id)
+```
+
+```lua
+getChatMember(chat_id, user_id)
+```
+
 ### Helper functions:
 
 
