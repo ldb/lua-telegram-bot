@@ -760,7 +760,7 @@ local function answerCallbackQuery(callback_query_id, text, show_alert)
 
 	request_body.callback_query_id = tostring(callback_query_id)
 	request_body.text = tostring(text)
-	request_body.show_alert = show_alert
+	request_body.show_alert = tostring(show_alert)
 	
 	local response = makeRequest("answerCallbackQuery",request_body)
 
