@@ -526,7 +526,7 @@ local function sendVoice(chat_id, voice, duration, disable_notification, reply_t
   end
 end
 
-M.sendAudio = sendAudio
+M.sendVoice = sendVoice
 
 local function sendLocation(chat_id, latitude, longitude, disable_notification, reply_to_message_id, reply_markup)
 
