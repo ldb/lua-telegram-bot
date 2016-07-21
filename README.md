@@ -1,5 +1,5 @@
 # lua-telegram-bot
-A simple LUA Library for the [Telegram Bot API](https://https://core.telegram.org/bots/api)
+A simple LUA Library for the [Telegram Bot API](https://core.telegram.org/bots/api)
 
 Made with ❤️ by [@cosmonawt](https://telegram.me/cosmonawt)
 
