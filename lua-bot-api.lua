@@ -801,7 +801,7 @@ local function editMessageText(chat_id, message_id, inline_message_id, text, par
   local request_body = {}
 
   request_body.chat_id = chat_id
-  request_body.message_id = tonumber(chat_id)
+  request_body.message_id = tonumber(message_id)
   request_body.inline_message_id = tostring(inline_message_id)
   request_body.text = tostring(text)
   request_body.parse_mode = tostring(parse_mode)
@@ -829,7 +829,7 @@ local function editMessageCaption(chat_id, message_id, inline_message_id, captio
   local request_body = {}
 
   request_body.chat_id = chat_id
-  request_body.message_id = tonumber(chat_id)
+  request_body.message_id = tonumber(message_id)
   request_body.inline_message_id = tostring(inline_message_id)
   request_body.caption = tostring(caption)
   request_body.reply_markup = reply_markup
@@ -854,7 +854,7 @@ local function editMessageReplyMarkup(chat_id, message_id, inline_message_id, re
   local request_body = {}
 
   request_body.chat_id = chat_id
-  request_body.message_id = tonumber(chat_id)
+  request_body.message_id = tonumber(message_id)
   request_body.inline_message_id = tostring(inline_message_id)
   request_body.reply_markup = reply_markup
 
