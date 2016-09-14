@@ -177,20 +177,6 @@ end
 
 M.generateReplyKeyboardMarkup = generateReplyKeyboardMarkup
 
-local function generateReplyInlineKeyboardMarkup(inline_keyboard)
-
-  if not inline_keyboard then return nil, "keyboard not specified" end
-  if #inline_keyboard < 1 then return nil, "keyboard is empty" end
-
-  local response = {}
-
-  response.inline_keyboard = inline_keyboard
-
-  local responseString = JSON:encode(response)
-  return responseString
-end
-
-M.generateReplyInlineKeyboardMarkup = generateReplyInlineKeyboardMarkup
 
 local function generateReplyKeyboardHide(hide_keyboard, selective)
 
