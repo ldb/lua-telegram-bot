@@ -649,25 +649,6 @@ end
 
 M.getUserProfilePhotos = getUserProfilePhotos
 
-local function getFile(file_id)
-
-if not file_id then return nil, "file_id not specified" end
-
-local request_body = {}
-
-request_body.file_id = file_id
-
-local response = makeRequest("getFile",request_body)
-
-if (response.success == 1) then
-return JSON:decode(response.body)
-else
-return nil, "Request Error"
- end
-end
-
-M.getFile = getFile
-
 local function answerInlineQuery(inline_query_id, results, cache_time, is_personal, next_offset, switch_pm_text, switch_pm_parameter)
 
   if not inline_query_id then return nil, "inline_query_id not specified" end
