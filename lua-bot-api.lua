@@ -127,6 +127,25 @@ end
 
 -- Helper functions
 
+local function getFile(file_id)
+
+  if not file_id then return nil, "file_id not specified" end
+
+  local request_body = {}
+
+  request_body.file_id = file_id
+
+  local response = makeRequest("getFile",request_body)
+
+  if (response.success == 1) then
+    return JSON:decode(response.body)
+  else
+    return nil, "Request Error"
+  end
+end
+ 
+M.getFile = getFile
+ 
 local function downloadFile(file_id, download_path)
 
   if not file_id then return nil, "file_id not specified" end
@@ -135,8 +154,11 @@ local function downloadFile(file_id, download_path)
   local response = {}
 
   local file_info = getFile(file_id)
-  local download_file_path = download_path or "downloads/" .. file_info.result.file_path
-
+  -- file_info.result.file_path = "photo/xxx.yyy", let's strip the "photo" out.
+  --local download_file_path = download_path or "downloads/" .. file_info.result.file_path
+  local string_a,string_b = file_info.result.file_path:match("([^,]+)/([^,]+)")
+  local download_file_path = download_path .. string_b
+    
   local download_file = io.open(download_file_path, "w")
 
   if not download_file then return nil, "download_file could not be created"
@@ -629,19 +651,19 @@ M.getUserProfilePhotos = getUserProfilePhotos
 
 local function getFile(file_id)
 
-  if not file_id then return nil, "file_id not specified" end
+if not file_id then return nil, "file_id not specified" end
 
-  local request_body = {}
+local request_body = {}
 
-  request_body.file_id = file_id
+request_body.file_id = file_id
 
-  local response = makeRequest("getFile",request_body)
+local response = makeRequest("getFile",request_body)
 
-  if (response.success == 1) then
-    return JSON:decode(response.body)
-  else
-    return nil, "Request Error"
-  end
+if (response.success == 1) then
+return JSON:decode(response.body)
+else
+return nil, "Request Error"
+ end
 end
 
 M.getFile = getFile
