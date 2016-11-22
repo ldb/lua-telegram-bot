@@ -235,7 +235,7 @@ onUpdateReceive(update)
 - Is called every time an update, no matter of what type, is received.
 
 ```lua
-onMessageReceive(message)
+onTextReceive(message)
 ```
 - Is called every time a text message is received.
 
@@ -348,7 +348,7 @@ In order to provide your own desired behaviour to these callback functions, you 
 ```lua
 local bot, extension = require("lua-bot-api").configure(token)
 
-extension.onMessageReceive = function (message)
+extension.onTextReceive = function (message)
 	-- Your own desired behaviour here
 end
 
