@@ -968,54 +968,6 @@ end
 
 M.getChatMember = getChatMember
 
-local function deleteWebhook( )
-	local response = makeRequest("deleteWebhook" {""} )
-  if (response.success == 1) then
-		return JSON:decode(response.body)
-  else
-    return nil, "Request Error"
-  end
-end
-
-M.deleteWebhook = deleteWebhook
-
-local function getWebhookInfo( )
-	local response = makeRequest("getWebhookInfo" {""} )
-  if (response.success == 1) then
-		return JSON:decode(response.body)
-  else
-    return nil, "Request Error"
-  end
-end
-
-M.getWebhookInfo = getWebhookInfo
-
-local function setGameScore(user_id, score, force, disable_edit_message, chat_id, message_id, inline_message_id)
-
-  if not user_id then return nil, "user_id not specified" end
-  if not score then return nil, "score not specified" end
-
-
-  local request_body = {}
-  request_body.user_id = user_id
-  request_body.score = user_id
-  request_body.force = force
-  request_body.disable_edit_message = disable_edit_message
-  request_body.chat_id = chat_id
-  request_body.message_id = message_id
-  request_body.inline_message_id = inline_message_id
-
-  local response = makeRequest("setGameScore", request_body)
-
-  if (response.success == 1) then
-    return JSON:decode(response.body)
-  else
-    return nil, "Request Error"
-  end
-end
-
---M.setGameScore = setGameScore
-
 -- Extension Framework
 
 local function onUpdateReceive(update) end
@@ -1093,8 +1045,8 @@ E.onCallbackQueryReceive = onCallbackQueryReceive
 local function onChannelPost(post) end
 E.onChannelPost = onChannelPost
 
-local function onChanneEditlPost(post) end
-E.onChanneEditlPost = onChanneEditlPost
+local function onChannelEditPost(post) end
+E.onChannelEditPost = onChannelEditPost
 
 local function onUnknownTypeReceive(unknownType)
   print("new unknownType!")
@@ -1156,7 +1108,7 @@ local function parseUpdateCallbacks(update)
   elseif (update.channel_post) then
   	E.onChannelPost(update.channel_post)
   elseif (update.edited_channel_post) then
-  	E.onChanneEditlPost(update.edited_channel_post)
+  	E.onChannelEditPost(update.edited_channel_post)
   else
     E.onUnknownTypeReceive(update)
   end
