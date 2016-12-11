@@ -207,13 +207,14 @@ M.generateForceReply = generateForceReply
 
 -- Bot API 1.0
 
-local function getUpdates(offset, limit, timeout)
+local function getUpdates(offset, limit, timeout, allowed_updates)
 
   local request_body = {}
 
   request_body.offset = offset
   request_body.limit = limit
   request_body.timeout = timeout or 0
+  request_body.allowed_updates = allowed_updates or nil
 
   local response =  makeRequest("getUpdates", request_body)
 
@@ -341,7 +342,7 @@ end
 M.sendPhoto = sendPhoto
 
 
-local function sendAudio(chat_id, audio, duration, performer, title, disable_notification, reply_to_message_id, reply_markup)
+local function sendAudio(chat_id, audio, caption, duration, performer, title, disable_notification, reply_to_message_id, reply_markup)
 
   if not chat_id then return nil, "chat_id not specified" end
   if not audio then return nil, "audio not specified" end
@@ -366,6 +367,7 @@ local function sendAudio(chat_id, audio, duration, performer, title, disable_not
   request_body.chat_id = chat_id
   request_body.audio = file_id or audio_data
   request_body.duration = duration
+  request_body.caption = caption
   request_body.performer = performer
   request_body.title = title
   request_body.disable_notification = tostring(disable_notification)
@@ -506,7 +508,7 @@ end
 M.sendVideo = sendVideo
 
 
-local function sendVoice(chat_id, voice, duration, disable_notification, reply_to_message_id, reply_markup)
+local function sendVoice(chat_id, voice, caption, duration, disable_notification, reply_to_message_id, reply_markup)
 
   if not chat_id then return nil, "chat_id not specified" end
   if not voice then return nil, "voice not specified" end
@@ -531,6 +533,7 @@ local function sendVoice(chat_id, voice, duration, disable_notification, reply_t
   request_body.chat_id = chat_id
   request_body.voice = file_id or voice_data
   request_body.duration = duration
+  request_body.caption = caption
   request_body.disable_notification = tostring(disable_notification)
   request_body.reply_to_message_id = tonumber(reply_to_message_id)
   request_body.reply_markup = reply_markup
@@ -770,7 +773,7 @@ end
 
 M.unbanChatMember = unbanChatMember
 
-local function answerCallbackQuery(callback_query_id, text, show_alert)
+local function answerCallbackQuery(callback_query_id, text, show_alert, cache_time)
 
 	if not callback_query_id then return nil, "callback_query_id not specified" end
 
@@ -779,6 +782,7 @@ local function answerCallbackQuery(callback_query_id, text, show_alert)
 	request_body.callback_query_id = tostring(callback_query_id)
 	request_body.text = tostring(text)
 	request_body.show_alert = tostring(show_alert)
+	request_body.cache_time = tostring(cache_time)
 	
 	local response = makeRequest("answerCallbackQuery",request_body)
 
@@ -1038,6 +1042,12 @@ E.onChosenInlineQueryReceive = onChosenInlineQueryReceive
 local function onCallbackQueryReceive(CallbackQuery) end
 E.onCallbackQueryReceive = onCallbackQueryReceive
 
+local function onChannelPost(post) end
+E.onChannelPost = onChannelPost
+
+local function onChannelEditPost(post) end
+E.onChannelEditPost = onChannelEditPost
+
 local function onUnknownTypeReceive(unknownType)
   print("new unknownType!")
 end
@@ -1095,6 +1105,10 @@ local function parseUpdateCallbacks(update)
     E.onChosenInlineQueryReceive(update.chosen_inline_result)
   elseif (update.callback_query) then
     E.onCallbackQueryReceive(update.callback_query)
+  elseif (update.channel_post) then
+  	E.onChannelPost(update.channel_post)
+  elseif (update.edited_channel_post) then
+  	E.onChannelEditPost(update.edited_channel_post)
   else
     E.onUnknownTypeReceive(update)
   end
