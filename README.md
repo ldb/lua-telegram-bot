@@ -1,9 +1,8 @@
 # lua-telegram-bot
 A simple LUA Library for the [Telegram Bot API](https://core.telegram.org/bots/api)
 
-Made with ❤️ by [@cosmonawt](https://telegram.me/cosmonawt)
-
-If you have questions, want to show off your bots or just chat about bot development, feel free to join the [group](https://telegram.me/luatelegrambot) I created.
+## Important
+**This library is not under active development anymore.**
 
 ## Changelog
 
